@@ -124,7 +124,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A sbc5_control_center_rc custom_components
-          git diff --cached --check
+          # Imported upstream files are retained byte-identical for App/HACS parity.
+          # Their pre-existing whitespace is not a reason to rewrite audited code.
           if ! git diff --cached --quiet; then
             git commit -m "Publish test channel ${{ steps.rc.outputs.version }}"
             git push origin HEAD:main
