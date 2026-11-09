@@ -70,13 +70,14 @@ jobs:
           python scripts/sync_rc.py
           python -m compileall -q scripts custom_components/sbc5_control_center sbc5_control_center_rc
           bash -n sbc5_control_center_rc/rc_exclusive_guard.sh
+          python scripts/test_rc_exclusive_guard.py
           python - <<'PY'
           from pathlib import Path
           import yaml,json
           app=Path('sbc5_control_center_rc')
           c=yaml.safe_load((app/'config.yaml').read_text())
           m=json.loads(Path('custom_components/sbc5_control_center/manifest.json').read_text())
-          assert c['version']==m['version']=='3.2.1-rc1'
+          assert c['version']==m['version']==json.loads(Path('.rc-source.json').read_text())['version']
           assert c['slug']=='sbc5_control_center_rc'
           assert c['boot']=='manual' and c['stage']=='experimental'
           assert c['options']['rc_exclusive_ack'] is False
