@@ -4,5 +4,6 @@
   "app_repository": "krlmdfk/sbc5-control-center",
   "app_branch": "rc/3.2.1-rc1",
   "hacs_repository": "krlmdfk/sbc5-control-center-integration",
-  "hacs_branch": "rc/3.2.1-rc1"
+  "hacs_branch": "rc/3.2.1-rc1",
+  "app_commit": "ad2e5f866bceff9158387f9d6a7ac322a195704c"
 }
