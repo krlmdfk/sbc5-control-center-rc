@@ -1,0 +1,2012 @@
+# Changelog — SBC5 Control Center
+
+## 3.2.1-rc1 — 2026-11-09
+
+### English
+
+#### Changed
+
+- Test channel with AI and security hardening
+
+#### Upgrade notes
+
+- Restart Home Assistant after installation/update.
+
+### Polski
+
+#### Zmieniono
+
+- Kanał testowy: zabezpieczenia AI i aktualizacji
+
+#### Informacje o aktualizacji
+
+- Po instalacji/aktualizacji uruchom ponownie Home Assistant.
+
+## 3.2.0 — 2026-11-08
+
+### English
+
+#### Added
+
+- Document global installation, security review and mandatory real-device release gates in English and Polish.
+
+#### Changed
+
+- Target raspberrypi5-64 explicitly to avoid offering the App on unsupported aarch64 boards.
+
+#### Security
+
+- Disclose full_access, host_pid, AppArmor disablement and elevated Supervisor/kernel privileges; do not reduce privileges without hardware validation.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Dodano
+
+- Dodano dwujęzyczną instrukcję instalacji globalnej, audyt bezpieczeństwa oraz wymagane testy na urządzeniu.
+
+#### Zmieniono
+
+- Ograniczono dostępność aplikacji do raspberrypi5-64 zamiast wszystkich urządzeń aarch64.
+
+#### Bezpieczeństwo
+
+- Jawnie opisano full_access, host_pid, wyłączenie AppArmor oraz uprawnienia Supervisor i systemu; bez zmiany uprawnień przed testami sprzętowymi.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.37 — 2026-11-08
+
+### English
+
+#### Changed
+
+- Expose guidance context reset reason and reset count; preserve Adaptive PWM authority and all predictor quality gates.
+
+#### Fixed
+
+- Reset short-term forecast smoothing and direction confirmations after setpoint, workload-regime, or mode changes and telemetry gaps.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Zmieniono
+
+- Dodano przyczynę i licznik resetów stanu prognozy; bez zmian uprawnień Adaptive PWM i progów jakości.
+
+#### Naprawiono
+
+- Reset krótkoterminowego wygładzania prognoz oraz potwierdzeń kierunku po zmianie celu, zakresu obciążenia, trybu lub przerwie w telemetrii.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.36 — 2026-11-03
+
+### English
+
+#### Changed
+
+- Synchronize the embedded bridge, package, Card UI and update metadata.
+
+#### Fixed
+
+- Protect SBC5 entity records on canonical ID collisions with unrelated integrations.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Zmieniono
+
+- Synchronizacja bridge, pakietu, Card UI i metadanych aktualizacji.
+
+#### Naprawiono
+
+- Ochrona encji SBC5 przed kolizjami identyfikatorów z obcymi integracjami.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.34 — 2026-11-03
+
+### English
+
+#### Changed
+
+- Align App runtime metadata, package, Card UI, embedded integration, release notes and update-manifest hashes with HACS 3.1.34.
+
+#### Fixed
+
+- Restrict AI Thermal Predictor migration to exact unique IDs owned by the legacy template platform; never remove unrelated integrations.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Zmieniono
+
+- Ujednolicono metadane runtime, pakiet, Card UI, zintegrowany kod, notatki wydania i sumy kontrolne z HACS 3.1.34.
+
+#### Naprawiono
+
+- Ograniczono migrację AI Thermal Predictora do identyfikatorów legacy platformy template; bez usuwania encji innych integracji.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.32 — 2026-11-02
+
+### English
+
+#### Added
+
+- Two-cycle actuator reversal guard that limits near-target opposite-direction PWM movement to 1 pp while preserving immediate safety response.
+- Explicit physical PWM, pre-actuator request and applied PWM fields in Adaptive PWM runtime logs.
+- Regression coverage for graded trim recovery, reversal handling, Bash syntax and unchanged Thermal Predictor authority limits.
+
+#### Changed
+
+- The 2 pp fast positive-trim release is now reserved for errors up to +0.30 C; between +0.30 and +0.80 C a confirmed cooling trend releases at most 1 pp per cycle.
+- Opposite-direction PWM changes are damped for two control cycles near target, but a genuine >=2 C thermal error bypasses the guard.
+- Thermal Predictor unconfirmed forecast diagnostics now explicitly report confirmation rejection without changing prediction policy.
+
+#### Performance
+
+- No new polling loop or background process is added; the guard reuses the existing 10-second Adaptive PWM controller cycle.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Dodano
+
+- Dwucyklowy guard odwrócenia aktuatora ograniczający przy celu ruch PWM w przeciwnym kierunku do 1 pp, z zachowaniem natychmiastowej reakcji bezpieczeństwa.
+- Jawne pola fizycznego PWM, żądania przed ograniczeniami aktuatora oraz zastosowanego PWM w logach Adaptive PWM.
+- Testy regresyjne stopniowanego wygaszania trimu, odwróceń aktuatora, składni Bash i niezmienionych limitów Thermal Predictora.
+
+#### Zmieniono
+
+- Szybkie wygaszanie dodatniego trimu o 2 pp działa teraz tylko do błędu +0,30 C; pomiędzy +0,30 a +0,80 C potwierdzony trend chłodzenia wygasza maksymalnie 1 pp na cykl.
+- Zmiany PWM w przeciwnym kierunku są tłumione przez dwa cykle przy celu, ale rzeczywisty błąd termiczny >=2 C omija guard.
+- Diagnostyka niepotwierdzonych prognoz Thermal Predictora jawnie wskazuje odrzucenie przez guard potwierdzenia bez zmiany polityki predykcji.
+
+#### Wydajność
+
+- Nie dodano nowej pętli odpytywania ani procesu w tle; guard wykorzystuje istniejący 10-sekundowy cykl regulatora Adaptive PWM.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.31 — 2026-11-01
+
+### English
+
+#### Added
+
+- Fused thermal trend for Adaptive PWM using 65% of the robust 30-second trend and 35% of the robust 120-second trend.
+- Adaptive Trim Recovery states for blocked trim growth, cooling recovery and fast near-target trim release.
+- Regression coverage for Trend Fusion, anti-windup behavior and unchanged AI/Thermal Predictor authority limits.
+
+#### Changed
+
+- Positive trim accumulation is blocked when the fused thermal trend already indicates meaningful cooling.
+- Near the target, stale positive trim can decay by up to 2 pp per control cycle when thermal direction is neutral or cooling.
+- Adaptive PWM logs now expose trendF alongside trend30 and trend120 for runtime diagnosis.
+
+#### Performance
+
+- No new polling loop or background process is added; Trend Fusion reuses the existing conditioned-temperature history and Adaptive PWM cycle.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Dodano
+
+- Łączony trend termiczny Adaptive PWM wykorzystujący 65% odpornego trendu 30-sekundowego i 35% trendu 120-sekundowego.
+- Stany Adaptive Trim Recovery dla blokowania narastania trimu, odzyskiwania podczas chłodzenia i szybkiego wygaszania trimu przy celu.
+- Testy regresyjne Trend Fusion, anti-windup oraz niezmienionych limitów wpływu AI/Thermal Predictora.
+
+#### Zmieniono
+
+- Narastanie dodatniego trimu jest blokowane, gdy łączony trend termiczny wskazuje już wyraźne chłodzenie.
+- W pobliżu celu nieaktualny dodatni trim może maleć do 2 pp na cykl sterowania, gdy kierunek termiczny jest neutralny lub chłodzący.
+- Logi Adaptive PWM pokazują teraz trendF obok trend30 i trend120 dla diagnostyki runtime.
+
+#### Wydajność
+
+- Nie dodano nowej pętli odpytywania ani procesu w tle; Trend Fusion wykorzystuje istniejącą historię filtrowanej temperatury i cykl Adaptive PWM.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.30 — 2026-11-01
+
+### English
+
+#### Added
+
+- Thermal Predictor Stability v2 with median-of-3 weighted-forecast conditioning and EMA smoothing.
+- Persistent two-cycle hot/cool forecast confirmation with a bounded high-quality fast path.
+- Detailed thermal-state diagnostics including raw, median and stable forecasts plus confirmation state.
+
+#### Changed
+
+- Thermal Predictor now uses the filtered control temperature and the 30-second control trend when available.
+- Positive predictor corrections are suppressed during rapid cooling and negative corrections during rapid heating unless a strong confirmed forecast qualifies for override.
+
+#### Performance
+
+- No new polling loop or background process is added; Stability v2 advances inside the existing AI Cooling cycle.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Dodano
+
+- Thermal Predictor Stability v2 z kondycjonowaniem ważonej prognozy medianą z 3 próbek i wygładzaniem EMA.
+- Trwałe dwucyklowe potwierdzanie prognoz hot/cool z ograniczoną szybką ścieżką dla prognoz wysokiej jakości.
+- Szczegółowa diagnostyka stanu termicznego obejmująca prognozę surową, medianę, prognozę stabilną i stan potwierdzenia.
+
+#### Zmieniono
+
+- Thermal Predictor korzysta teraz z filtrowanej temperatury sterującej i 30-sekundowego trendu sterującego, gdy są dostępne.
+- Dodatnie korekty predyktora są blokowane podczas szybkiego chłodzenia, a ujemne podczas szybkiego grzania, chyba że silna potwierdzona prognoza spełnia warunki wyjątku.
+
+#### Wydajność
+
+- Nie dodano nowej pętli odpytywania ani procesu w tle; Stability v2 działa w istniejącym cyklu AI Cooling.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.29 — 2026-10-31
+
+### English
+
+#### Added
+
+- Add T_raw/T_control diagnostics, 30/120-second thermal trends, signal quality, spike rejection and confirmed thermal direction to Adaptive PWM runtime state.
+
+#### Changed
+
+- Use median-of-3 plus asymmetric EWMA for normal Adaptive PWM control while preserving raw CPU temperature as the authoritative safety and emergency signal.
+- Require Thermal Predictor forecast direction to agree with robust short/long temperature trends before a guided PWM correction is allowed.
+
+#### Fixed
+
+- Prevent isolated temperature spikes and short cooling dips from causing rapid PWM direction reversals or unnecessary fan hunting near the target.
+
+#### Performance
+
+- Reuse the existing 10-second Adaptive PWM cycle; no additional background polling loop is introduced.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Dodano
+
+- Dodaje diagnostykę T_raw/T_control, trendy termiczne 30/120 s, jakość sygnału, odrzucanie pików i potwierdzony kierunek termiczny do stanu runtime Adaptive PWM.
+
+#### Zmieniono
+
+- W zwykłym sterowaniu Adaptive PWM używa mediany z 3 próbek i asymetrycznego EWMA, zachowując surową temperaturę CPU jako nadrzędny sygnał bezpieczeństwa i awaryjnego handoffu.
+- Wymaga zgodności kierunku prognozy Thermal Predictora z odpornymi trendami krótkim i długim przed dopuszczeniem korekty PWM.
+
+#### Naprawiono
+
+- Ogranicza wpływ pojedynczych pików temperatury i krótkich spadków na szybkie odwracanie kierunku PWM oraz oscylacje wentylatora w pobliżu temperatury docelowej.
+
+#### Wydajność
+
+- Wykorzystuje istniejący 10-sekundowy cykl Adaptive PWM; nie dodaje nowej pętli odpytywania w tle.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.28 — 2026-10-30
+
+### English
+
+#### Changed
+
+- Restore AI Cooling v5.2 and Thermal Predictor runtime evaluation by packaging the missing thermal_effectiveness dependency in the application image.
+
+#### Fixed
+
+- Package thermal_effectiveness.py alongside the v5.2 AI runtime and strengthen Docker runtime validation so project-local imports cannot be omitted from future images.
+
+#### Performance
+
+- No new polling loop and no cooling-policy change; Adaptive PWM and existing AI evaluator cadence remain unchanged.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Zmieniono
+
+- Przywraca działanie evaluatora AI Cooling v5.2 i Thermal Predictora przez dołączenie brakującej zależności thermal_effectiveness do obrazu aplikacji.
+
+#### Naprawiono
+
+- Dołącza thermal_effectiveness.py do runtime AI v5.2 i wzmacnia walidację obrazu Docker, aby lokalne moduły importowane przez runtime nie mogły zostać pominięte w kolejnych wydaniach.
+
+#### Wydajność
+
+- Bez nowej pętli odpytywania i bez zmian polityki chłodzenia; Adaptive PWM oraz dotychczasowy cykl evaluatora AI pozostają bez zmian.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.27 — 2026-10-30
+
+### English
+
+#### Changed
+
+- Recover the REST-backed AI Runtime relay immediately after Home Assistant Core restarts, preventing temporary unavailable AI and Thermal Predictor sensors.
+
+#### Fixed
+
+- Detect a missing sensor.sbc5_control_center_ai_runtime on the existing 30-second relay cadence and republish it without waiting for the 5-minute keepalive.
+
+#### Performance
+
+- No additional background loop; the existence probe reuses the existing AI relay cadence and does not change cooling control.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Zmieniono
+
+- Natychmiast odtwarza relay AI Runtime oparty o REST po restarcie Home Assistant Core, eliminując czasową niedostępność sensorów AI i Thermal Predictora.
+
+#### Naprawiono
+
+- Wykrywa brak sensor.sbc5_control_center_ai_runtime w istniejącym 30-sekundowym cyklu relay i publikuje go ponownie bez oczekiwania na 5-minutowy keepalive.
+
+#### Wydajność
+
+- Bez dodatkowej pętli w tle; sprawdzenie istnienia encji wykorzystuje istniejący cykl AI relay i nie zmienia sterowania chłodzeniem.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.26 — 2026-10-30
+
+### English
+
+#### Changed
+
+- Persist Thermal Predictor effectiveness diagnostics across add-on and process restarts without changing cooling policy.
+
+#### Fixed
+
+- Persist Thermal Predictor effectiveness counters, pending observations and 30/60/120-second horizon results in a dedicated atomic checkpoint.
+- Migrate the 3.1.25 schema-1 effectiveness state without losing collected diagnostic evidence.
+
+#### Performance
+
+- No additional polling loop or background worker; persistence runs only when effectiveness state changes.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Zmieniono
+
+- Zachowano statystyki skuteczności Thermal Predictora między restartami aplikacji i procesu bez zmiany polityki chłodzenia.
+
+#### Naprawiono
+
+- Dodano trwały atomowy checkpoint dla liczników skuteczności Thermal Predictora, oczekujących obserwacji oraz wyników 30/60/120 s.
+- Dodano migrację stanu skuteczności schema 1 z wersji 3.1.25 bez utraty zebranych danych diagnostycznych.
+
+#### Wydajność
+
+- Bez dodatkowej pętli odpytywania i procesu w tle; zapis trwały wykonywany jest tylko po zmianie stanu skuteczności.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.25 — 2026-10-30
+
+### English
+
+#### Changed
+
+- Measure observed Thermal Predictor post-intervention effectiveness at 30/60/120 seconds without changing cooling policy.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Zmieniono
+
+- Dodano obserwacyjny pomiar skuteczności interwencji Thermal Predictora po 30/60/120 sekundach bez zmiany polityki chłodzenia.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.24 — 2026-10-30
+
+### English
+
+#### Changed
+
+- Align Thermal Predictor diagnostics and dashboard with the active guided-assist runtime without changing cooling control policy.
+
+#### Fixed
+
+- Report Thermal Predictor requested/applied delta separately from the overall AI correction in runtime logs.
+- Replace stale observe-only dashboard copy with the real guided-assist gate and control-output state.
+- Expose weighted forecast, forecast error, horizon weights, gate reason and decision reason on the dashboard.
+
+#### Performance
+
+- No new polling loop or control calculation was added; the hotfix reuses data already produced by the existing AI cycle.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Zmieniono
+
+- Ujednolicono diagnostykę i kartę Thermal Predictora z aktywnym runtime guided-assist bez zmiany polityki sterowania chłodzeniem.
+
+#### Naprawiono
+
+- Rozdzielono w logach korektę żądaną/zastosowaną przez Thermal Predictor od całkowitej korekty AI.
+- Zastąpiono nieaktualny tekst observe-only rzeczywistym stanem gate i wpływu guided-assist.
+- Dodano na karcie prognozę ważoną, błąd, wagi horyzontów, powód gate i powód decyzji.
+
+#### Wydajność
+
+- Nie dodano nowej pętli odpytywania ani obliczeń sterujących; hotfix wykorzystuje dane już generowane w istniejącym cyklu AI.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.23 — 2026-10-30
+
+### English
+
+#### Changed
+
+- Fix Thermal Predictor guided-assist runtime wiring so forecast guidance is evaluated on every AI control cycle.
+
+#### Fixed
+
+- Evaluate Thermal Predictor dynamic forecast, gate and decision on every AI assist cycle instead of only during model-learning candidate updates.
+- Keep predictor correction bounded to ±2 pp and inside the existing AI assist-limit, min-safe and maximum envelope.
+- Expose real weighted forecast, horizon weights and requested/applied predictor delta instead of zero fallback diagnostics.
+
+#### Performance
+
+- No additional polling loop or background process is added; the predictor reuses the existing AI cycle.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Zmieniono
+
+- Naprawiono podłączenie Thermal Predictor guided assist w runtime, aby wskazówki prognozy były oceniane w każdym cyklu sterowania AI.
+
+#### Naprawiono
+
+- Thermal Predictor dynamic forecast, gate i decyzja są teraz oceniane w każdym cyklu AI assist, a nie tylko podczas aktualizacji kandydata modelu uczącego.
+- Korekta predictora pozostaje ograniczona do ±2 pp oraz do istniejącego zakresu assist-limit, min-safe i maximum.
+- Diagnostyka pokazuje rzeczywistą prognozę ważoną, wagi horyzontów i żądaną/zastosowaną korektę zamiast wartości zerowych z fallbacku.
+
+#### Wydajność
+
+- Nie dodano nowej pętli odpytywania ani procesu w tle; predictor wykorzystuje istniejący cykl AI.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.22 — 2026-10-30
+
+### English
+- Fixed the container image build failure introduced in 3.1.21: `ai_cooling_v5_2.py` is now copied to `/ai_cooling_v5_2.py` before the Dockerfile `chmod` step references that path.
+- Preserved `/ai_cooling.py` as the public v5.2 runtime entry point.
+- Added CI validation for Dockerfile runtime paths so missing chmod targets are detected before release.
+- Thermal Predictor guided assist behavior is unchanged.
+
+### Polski
+- Naprawiono błąd budowania obrazu kontenera wprowadzony w 3.1.21: `ai_cooling_v5_2.py` jest teraz kopiowany do `/ai_cooling_v5_2.py` zanim Dockerfile wykona `chmod` na tej ścieżce.
+- Zachowano `/ai_cooling.py` jako publiczny punkt wejścia runtime v5.2.
+- Dodano test CI ścieżek runtime Dockerfile, aby brakujące cele `chmod` były wykrywane przed wydaniem.
+- Działanie Thermal Predictor guided assist pozostaje bez zmian.
+
+## 3.1.21 — 2026-10-29
+
+### English
+- Added Thermal Predictor guided assist through the existing guarded AI Cooling / Adaptive PWM path; no second actuator path is introduced.
+- Added MAE-aware dynamic weighting for +30/+60/+120 s forecasts so more accurate horizons contribute more strongly.
+- Predictor guidance automatically weakens with lower confidence or higher average MAE.
+- Added a dedicated `Thermal Predictor:` runtime diagnostic log with forecasts, confidence, MAE, weighted forecast, horizon weights, gain and accepted/rejected counters.
+- Extended the evaluator TSV without adding another polling loop and preserved the existing AI Cooling assist limits, deadband, sign guards and thermal safety paths.
+
+### Polski
+- Dodano Thermal Predictor guided assist przez istniejącą zabezpieczoną ścieżkę AI Cooling / Adaptive PWM — bez tworzenia drugiego toru sterowania.
+- Dodano dynamiczne ważenie prognoz +30/+60/+120 s według MAE, dzięki czemu dokładniejszy horyzont ma większy wpływ.
+- Wpływ Predictora automatycznie maleje przy niższym confidence lub wyższym średnim MAE.
+- Dodano osobny log `Thermal Predictor:` z prognozami, confidence, MAE, prognozą ważoną, wagami horyzontów, gain oraz licznikami accepted/rejected.
+- Rozszerzono istniejący wynik evaluatora bez nowej pętli odpytywania; zachowano limity AI Cooling, deadband, sign guard i termiczne ścieżki bezpieczeństwa.
+
+## 3.1.20 — 2026-10-29
+
+### English
+
+#### Fixed
+- Fixed the packaged AI Cooling runtime chain: v5 now loads the v4 compatibility wrapper from `/ai_cooling_v4.py` instead of bypassing Thermal Predictor injection through the raw legacy module.
+- Packaged `thermal_predictor_v3.py` explicitly in the application image and added a CI regression guard for the full AI runtime path.
+
+#### Changed
+- Added a dedicated **Thermal Predictor · temperature and forecasts · 24 h** history graph combining actual CPU temperature with +30/+60/+120 second forecasts.
+- Kept Recorder load low: no forced duplicate-state writes were introduced; freshness remains observable through the existing Predictor data-age sensor.
+- No Raspberry Pi host reboot is required. The application restarts normally during update; restart Home Assistant Core after updating the HACS integration.
+
+### Polski
+
+#### Naprawiono
+- Naprawiono łańcuch warstw runtime AI Cooling w obrazie aplikacji: v5 ładuje teraz wrapper zgodności v4 z `/ai_cooling_v4.py`, zamiast omijać wstrzyknięcie Thermal Predictora przez surowy moduł legacy.
+- `thermal_predictor_v3.py` jest jawnie pakowany do obrazu aplikacji, a CI otrzymało test regresyjny całej ścieżki runtime AI.
+
+#### Zmieniono
+- Dodano osobny wykres **Thermal Predictor · temperatura i prognozy · 24 h**, łączący rzeczywistą temperaturę CPU z prognozami +30/+60/+120 s.
+- Nie wprowadzono wymuszonych duplikatów stanów do Recordera, aby nie zwiększać obciążenia HA; świeżość danych nadal pokazuje istniejący sensor wieku danych Predictora.
+- Pełny restart Raspberry Pi nie jest wymagany. Aplikacja jest standardowo restartowana podczas aktualizacji; po aktualizacji integracji HACS należy zrestartować Home Assistant Core.
+
+## 3.1.19 — 2026-10-29
+
+### English
+
+#### Changed
+
+- Thermal Predictor v3.1 validates +30/+60/+120 s forecasts against the interpolated CPU temperature at the exact forecast due timestamp instead of a later polling sample.
+- Replaced ordinary linear trend estimation with a robust median pairwise slope estimator to reduce sensitivity to isolated temperature spikes.
+- Predictor context validation now covers the complete forecast path, so transient workload, target or PWM changes cannot be mistaken for model error after conditions return to their starting point.
+- Compatible Thermal Predictor v3 regime/global calibration is retained during migration to v3.1, while the old pending forecast queue is discarded because validation semantics changed.
+- Added separate accepted/rejected forecast counters, rejection categories and reasons, exact validation diagnostics, condition-shift MAE and per-horizon accuracy targets.
+
+#### Fixed
+
+- Prevented late or irregular telemetry polling from inflating Predictor MAE by evaluating a forecast at the poll time rather than its intended horizon.
+
+#### Restart
+
+- No Raspberry Pi host reboot is required. The application is restarted normally by the update process.
+
+### Polski
+
+#### Zmieniono
+
+- Thermal Predictor v3.1 waliduje prognozy +30/+60/+120 s względem interpolowanej temperatury CPU dokładnie w czasie zapadalności prognozy, a nie względem późniejszej próbki pollingu.
+- Zwykłe liniowe wyznaczanie trendu zastąpiono odpornym estymatorem medianowym nachylenia, ograniczając wpływ pojedynczych skoków temperatury.
+- Walidacja kontekstu Predictora obejmuje teraz całą ścieżkę prognozy, dzięki czemu chwilowe zmiany obciążenia, celu lub PWM nie są traktowane jako błąd modelu po powrocie warunków do stanu początkowego.
+- Przy migracji z Thermal Predictor v3 zachowywana jest zgodna kalibracja regime/global, natomiast stara kolejka oczekujących prognoz jest odrzucana ze względu na zmianę semantyki walidacji.
+- Dodano osobne liczniki prognoz zaakceptowanych i odrzuconych, kategorie i przyczyny odrzuceń, diagnostykę dokładnej walidacji, MAE zmian warunków oraz cele dokładności dla każdego horyzontu.
+
+#### Naprawiono
+
+- Usunięto zawyżanie MAE Predictora przy opóźnionym lub nieregularnym pollingu, gdy prognoza była oceniana w chwili odczytu zamiast dla właściwego horyzontu.
+
+#### Restart
+
+- Pełny restart hosta Raspberry Pi nie jest wymagany. Aplikacja jest standardowo restartowana przez proces aktualizacji.
+
+## 3.1.18 — 2026-10-29
+
+### English
+
+#### Changed
+
+- Persist Ethernet EEE choices across host reboots and correct userspace-managed custom1 fan profile status.
+
+#### Fixed
+
+- Persist Ethernet EEE settings in a dedicated /data state so Supervisor-restored defaults cannot revert EEE after host reboot.
+- Report custom1 + runtime custom + 1% grid + Adaptive PWM as active_runtime_managed instead of a false pending_host_reboot.
+- Report actual Ethernet guard startup state and relay guard logs to the main App log while retaining the dedicated guard log.
+
+#### Performance
+
+- Keep Ethernet monitoring file-based and event-light; no additional Home Assistant network polling is introduced.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Zmieniono
+
+- Utrwalono wybór Ethernet EEE po restartach hosta i poprawiono status profilu custom1 zarządzanego przez Adaptive PWM.
+
+#### Naprawiono
+
+- Zapisano ustawienia Ethernet EEE w osobnym trwałym stanie /data, dzięki czemu domyślne opcje odtworzone przez Supervisor nie cofają EEE po restarcie hosta.
+- Dla custom1 + runtime custom + siatki 1% + Adaptive PWM raportowany jest active_runtime_managed zamiast fałszywego pending_host_reboot.
+- Start Ethernet Guard pokazuje faktyczny żądany stan, a log guardu trafia także do głównego logu aplikacji przy zachowaniu osobnego logu diagnostycznego.
+
+#### Wydajność
+
+- Diagnostyka Ethernet pozostaje lekka i plikowa; nie dodano dodatkowego odpytywania sieci przez Home Assistant.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.17 — 2026-10-29
+
+### English
+
+#### Added
+
+- Add opt-in Energy Efficient Ethernet control with auto and off modes; off writes dtparam=eee=off to a dedicated SBC5-managed boot block.
+- Add Ethernet Health, Ethernet Link Flaps and Ethernet EEE Status sensors through the native SBC5 integration.
+
+#### Changed
+
+- App Configuration now exposes Ethernet monitoring, flap window and DEGRADED threshold without changing EEE unless the user explicitly selects off.
+
+#### Fixed
+
+- Prevent duplicate SBC5 EEE entries, preserve user-managed EEE settings and refuse conflicting external dtparam=eee=on configuration.
+
+#### Performance
+
+- Ethernet health is sampled from host sysfs by the app guard and relayed through a small JSON state file, avoiding additional Home Assistant network polling.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Dodano
+
+- Dodano opcjonalne sterowanie Energy Efficient Ethernet z trybami auto i off; tryb off zapisuje dtparam=eee=off w osobnym bloku zarządzanym przez SBC5.
+- Dodano sensory Ethernet Health, Ethernet Link Flaps oraz Ethernet EEE Status w natywnej integracji SBC5.
+
+#### Zmieniono
+
+- Konfiguracja aplikacji udostępnia monitorowanie Ethernet, okno flappingu i próg DEGRADED bez zmiany EEE, dopóki użytkownik jawnie nie wybierze off.
+
+#### Naprawiono
+
+- Zapobiegnięto duplikowaniu wpisów EEE, zachowano ręczne ustawienia użytkownika i dodano odmowę zapisu przy konflikcie z zewnętrznym dtparam=eee=on.
+
+#### Wydajność
+
+- Stan Ethernet jest próbkowany z hostowego sysfs przez lekki guard aplikacji i przekazywany małym plikiem JSON, bez dodatkowego odpytywania sieci przez Home Assistant.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.16 — 2026-10-29
+
+### English
+
+#### Added
+
+- Thermal Predictor v3 with separate fast and slow temperature trends that persist across workload bucket changes.
+- Per-bucket and per-horizon calibration for LOW, MEDIUM and HIGH operating regimes.
+
+#### Changed
+
+- Forecasts now account for CPU workload context, physical PWM state and recent context deltas instead of relying mainly on one temperature slope.
+- Quality scoring weights +30 s and +60 s forecasts more strongly while still tracking +120 s accuracy separately.
+
+#### Fixed
+
+- Prevented workload-bucket transitions from erasing the thermal trend history used by the predictor.
+- Context-shift guard prevents abrupt CPU/PWM changes from contaminating predictor bias and MAE calibration.
+
+#### Performance
+
+- Thermal Predictor v3 remains observe-only and adds no new polling loop or physical PWM authority.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Dodano
+
+- Thermal Predictor v3 z osobnym szybkim i wolnym trendem temperatury, zachowywanym przy zmianach bucketów obciążenia.
+- Kalibrację per bucket i per horyzont dla reżimów LOW, MEDIUM i HIGH.
+
+#### Zmieniono
+
+- Prognozy uwzględniają teraz kontekst obciążenia CPU, fizyczny PWM i ostatnie zmiany kontekstu zamiast opierać się głównie na jednym trendzie temperatury.
+- Ocena jakości mocniej uwzględnia prognozy +30 s i +60 s, zachowując osobne monitorowanie dokładności +120 s.
+
+#### Naprawiono
+
+- Zmiana bucketu obciążenia nie zeruje już historii trendu temperatury używanej przez Predictor.
+- Context-shift guard zapobiega zanieczyszczaniu kalibracji bias/MAE przez nagłe zmiany obciążenia CPU lub PWM.
+
+#### Wydajność
+
+- Thermal Predictor v3 pozostaje w trybie observe-only, bez nowej pętli pollingu i bez wpływu na fizyczne sterowanie PWM.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.15 — 2026-10-28
+
+### English
+
+#### Changed
+
+- Transient learning c/n/s diagnostics are shown on a separate readable line in the AI prediction tile.
+
+#### Fixed
+
+- Card UI no longer substitutes effective/general confidence for direct confidence when a bucket has zero qualified samples.
+- Direct PWM prediction now renders as an em dash when no direct model prediction exists.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Zmieniono
+
+- Diagnostyka transient learning c/n/s jest wyświetlana w osobnej czytelnej linii kafelka predykcji AI.
+
+#### Naprawiono
+
+- Card UI nie podstawia już pewności effective/ogólnej jako direct, gdy bucket ma zero próbek jakościowych.
+- Predykcja PWM direct jest teraz wyświetlana jako myślnik, gdy bezpośredni model nie ma predykcji.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.14 — 2026-10-28
+
+### English
+
+#### Changed
+
+- Fix Active Cooler custom overlay reconciliation after HAOS A/B slot switches.
+
+#### Fixed
+
+- Validate rpi5-custom1.dtbo in the currently booted HAOS RAUC slot instead of accepting a stale copy from any slot.
+- Automatically rebuild the custom fan overlay when the active slot is missing it after an HAOS update.
+
+#### Performance
+
+- No new polling loop; active-slot detection runs only during existing startup reconciliation.
+
+#### Upgrade notes
+
+- A full Raspberry Pi 5 host restart is required after installation/update.
+
+### Polski
+
+#### Zmieniono
+
+- Naprawa aktywacji niestandardowego profilu Active Cooler po przełączeniu slotu A/B przez HAOS.
+
+#### Naprawiono
+
+- Walidacja rpi5-custom1.dtbo dotyczy teraz aktualnie uruchomionego slotu RAUC HAOS, a nie dowolnej starej kopii z innego slotu.
+- Automatyczna odbudowa nakładki profilu wentylatora, gdy aktywny slot nie ma jej po aktualizacji HAOS.
+
+#### Wydajność
+
+- Bez nowej pętli odpytywania; wykrywanie aktywnego slotu działa wyłącznie w istniejącej fazie uzgadniania przy starcie.
+
+#### Informacje o aktualizacji
+
+- Po instalacji/aktualizacji wymagany jest pełny restart hosta Raspberry Pi 5.
+
+## 3.1.13 — 2026-10-28
+
+### English
+
+#### Changed
+
+- AI diagnostics hardening: sparse buckets now report direct confidence strictly from qualified evidence while transient/global/effective learning remains unchanged.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Zmieniono
+
+- Utwardzenie diagnostyki AI: sparse buckety pokazują direct confidence wyłącznie z próbek jakościowych, bez zmian w uczeniu transient/global/effective i sterowaniu chłodzeniem.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.12 — 2026-10-28
+
+### English
+
+#### Changed
+
+- Expose AI Cooling v5.1 transient-learning evidence through the existing transfer diagnostics path without changing cooling behavior or adding polling.
+
+#### Fixed
+
+- Expose transient confidence, sample count and support in the existing transfer_source telemetry token so medium/high burst learning is visible end to end.
+- Keep the existing 22-field evaluator ABI intact; no run_legacy parser expansion or new telemetry loop is required.
+
+#### Performance
+
+- No additional polling, Home Assistant REST reads or control-loop work is introduced.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Zmieniono
+
+- Udostępnia diagnostykę uczenia transient AI Cooling v5.1 przez istniejącą ścieżkę transferu bez zmiany sterowania chłodzeniem i bez dodatkowego pollingu.
+
+#### Naprawiono
+
+- Udostępniono pewność transient, liczbę próbek i support w istniejącym tokenie transfer_source, dzięki czemu uczenie z krótkich obciążeń medium/high jest widoczne end-to-end.
+- Zachowano istniejące 22-polowe ABI ewaluatora; nie rozszerzano parsera run_legacy ani nie dodawano nowej pętli telemetrii.
+
+#### Wydajność
+
+- Nie dodano pollingu, odczytów REST Home Assistant ani dodatkowej pracy w pętli sterowania.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.11 — 2026-10-28
+
+### English
+
+#### Added
+
+- AI Cooling v5.1 transient-response learning for short medium/high workload bursts.
+
+#### Changed
+
+- Dynamic evidence raises transfer confidence only; it does not increment qualified counters or directly alter steady-state PWM prediction.
+
+#### Fixed
+
+- Medium/high bursts rejected by the quasi-steady v4 qualifier can now contribute bounded learning evidence instead of being discarded completely.
+
+#### Performance
+
+- No new polling loop; v5.1 runs inside the existing 10-second AI evaluator.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Dodano
+
+- AI Cooling v5.1 z uczeniem odpowiedzi przejściowej dla krótkich obciążeń medium/high.
+
+#### Zmieniono
+
+- Dowody dynamiczne zwiększają wyłącznie pewność transferu; nie zwiększają liczników qualified i nie zmieniają bezpośrednio predykcji steady-state PWM.
+
+#### Naprawiono
+
+- Krótkie obciążenia medium/high odrzucone przez kwalifikator quasi-steady v4 mogą teraz wnosić ograniczony sygnał uczący zamiast być całkowicie pomijane.
+
+#### Wydajność
+
+- Brak nowej pętli pollingu; v5.1 działa wewnątrz istniejącego ewaluatora AI co 10 s.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.10 — 2026-10-28
+
+### English
+
+#### Added
+
+- Expose direct, global and effective AI confidence/prediction plus transfer source and effective coverage in runtime logs and dashboard telemetry.
+
+#### Changed
+
+- AI v5 observability reuses the existing evaluator TSV and adds no extra polling or per-cycle JSON parsing.
+
+#### Fixed
+
+- Log completed Repairs cleanup only when a native Repair marker actually existed.
+
+#### Performance
+
+- No new polling loop; observability fields travel in the existing 10-second AI evaluator result.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Dodano
+
+- Udostępniono bezpośrednią, globalną i efektywną pewność/predykcję AI, źródło transferu i efektywne pokrycie w logach runtime oraz na karcie.
+
+#### Zmieniono
+
+- Diagnostyka AI v5 wykorzystuje istniejący TSV ewaluatora bez dodatkowego pollingu i bez dodatkowego parsowania JSON w każdym cyklu.
+
+#### Naprawiono
+
+- Log czyszczenia zakończonego Repairs pojawia się tylko wtedy, gdy faktycznie istniał marker natywnego Repair.
+
+#### Wydajność
+
+- Bez nowej pętli pollingu; pola observability są przekazywane w istniejącym wyniku ewaluatora AI co 10 s.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.9 — 2026-10-28
+
+### English
+
+#### Changed
+
+- Refresh Adaptive PWM startup diagnostics to show +8 pp thermal-fast, +12 pp thermal-critical and -5 pp fast-down limits.
+
+#### Fixed
+
+- Distinguish a package already synchronized on disk from an older package version still loaded by Home Assistant Core.
+- Suppress the duplicate SBC5 native Repair when HACS already owns and has installed the matching bridge version.
+
+#### Performance
+
+- No new polling loop; restart ownership checks only reuse existing startup/restart evaluation.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Zmieniono
+
+- Zaktualizowano diagnostykę startową Adaptive PWM: +8 pp thermal-fast, +12 pp thermal-critical i -5 pp fast-down.
+
+#### Naprawiono
+
+- Rozróżniono package już zsynchronizowany na dysku od starszej wersji nadal załadowanej w Home Assistant Core.
+- Usunięto podwójny Repair SBC5, gdy HACS zarządza integracją i ma już zainstalowaną zgodną wersję bridge.
+
+#### Wydajność
+
+- Bez nowej pętli pollingu; sprawdzenie własności restartu wykorzystuje istniejącą ścieżkę startową/Restart Managera.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.8 — 2026-10-28
+
+### English
+
+#### Added
+
+- Added a hierarchical global cooling model above the proven bucket-aware v4 learner, with continuous CPU-load anchors and conservative knowledge transfer between workload ranges.
+- Added direct, global and effective confidence surfaces so sparse medium/high buckets no longer appear as having no usable model.
+
+#### Changed
+
+- Short real-world workload bursts can contribute bounded low-weight evidence to the global model; fully qualified v4 samples retain the strongest learning weight.
+- Mature direct bucket models remain authoritative; hierarchical assist is used only when direct bucket evidence is sparse and all existing Adaptive PWM sign/safety limits still apply.
+
+#### Performance
+
+- No additional polling loop was introduced; v5 runs inside the existing AI evaluator cadence and preserves the v4 fail-open fallback.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Dodano
+
+- Dodano hierarchiczny globalny model chłodzenia nad sprawdzonym learnerem v4, z ciągłymi anchorami obciążenia CPU i konserwatywnym transferem wiedzy między zakresami obciążenia.
+- Dodano osobne wskaźniki direct, global i effective confidence, dzięki czemu rzadkie buckety medium/high nie są już traktowane jak całkowity brak modelu.
+
+#### Zmieniono
+
+- Krótkie rzeczywiste skoki obciążenia mogą wnosić ograniczone dane o małej wadze do modelu globalnego; w pełni zakwalifikowane próbki v4 zachowują najwyższą wagę uczenia.
+- Dojrzałe bezpośrednie modele bucketów pozostają nadrzędne; hierarchiczny assist jest używany tylko przy małej liczbie danych lokalnych, z zachowaniem istniejących ograniczeń kierunku i bezpieczeństwa Adaptive PWM.
+
+#### Wydajność
+
+- Nie dodano nowej pętli pollingu; v5 działa w istniejącym cyklu ewaluatora AI i zachowuje fail-open fallback do v4.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.7 — 2026-10-27
+
+### English
+
+#### Changed
+
+- AI Cooling qualification is bucket-aware: bucket transitions reset only short stability windows while learned bins, counters and confidence remain preserved.
+- Medium/high use workload-specific temperature, slope and PWM quality limits while idle/low retain the stricter steady-state gates.
+- Adaptive PWM adds an upward-only thermal fast path: up to +8 pp per cycle from target+5C and +12 pp per cycle from target+7C; downward slew is unchanged.
+
+#### Fixed
+
+- Prevent low-load qualification history from contaminating medium/high windows, which could leave higher workload buckets with observations but zero qualified samples.
+- Restart Manager cards now identify whether a pending restart comes from CPU/OC, GPU, cooling/Device Tree, boot configuration, the current update, or an earlier independent request.
+
+#### Performance
+
+- No new polling loop is added; bucket-aware qualification reuses the existing 10-second AI evaluator and preserves the current durable checkpoint cadence.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Zmieniono
+
+- Kwalifikacja AI Cooling jest zależna od bucketa: przejście między bucketami zeruje wyłącznie krótkie okna stabilności, a wyuczone biny, liczniki i confidence pozostają zachowane.
+- Medium/high używają limitów jakości temperatury, trendu i PWM dopasowanych do obciążenia, a idle/low zachowują bardziej rygorystyczne kryteria stanu ustalonego.
+- Adaptive PWM otrzymuje thermal fast path wyłącznie w górę: do +8 pp/cykl od target+5C i +12 pp/cykl od target+7C; tempo zmniejszania PWM pozostaje bez zmian.
+
+#### Naprawiono
+
+- Usunięto wpływ historii kwalifikacji z niskiego obciążenia na okna medium/high, który mógł pozostawiać wyższe buckety z obserwacjami, ale bez próbek jakościowych.
+- Karty Restart Managera wskazują, czy oczekujący restart pochodzi z CPU/OC, GPU, chłodzenia/Device Tree, konfiguracji boot, bieżącej aktualizacji czy wcześniejszego niezależnego żądania.
+
+#### Wydajność
+
+- Nie dodano nowej pętli pollingowej; kwalifikacja zależna od bucketa wykorzystuje istniejący evaluator AI co 10 s i zachowuje dotychczasową częstotliwość trwałych checkpointów.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.6 — 2026-10-27
+
+### English
+
+#### Changed
+
+- Thermal Predictor v2 uses horizon-specific target anchoring and bounded signed online bias calibration for +30/+60/+120 s forecasts.
+- Shadow Assist remains telemetry-only with control_output_enabled=false and the existing ±2 pp recommendation limit.
+
+#### Fixed
+
+- Archive Predictor v1 quality statistics when migrating to v2 so historical errors cannot distort the new accuracy gate.
+
+#### Performance
+
+- Reuse the existing AI runtime cadence; no new fast polling loop or physical PWM write path is added.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Zmieniono
+
+- Thermal Predictor v2 wykorzystuje zależne od horyzontu dociąganie do celu i ograniczoną znakowaną korektę błędu online dla prognoz +30/+60/+120 s.
+- Shadow Assist pozostaje wyłącznie telemetryczny z control_output_enabled=false i dotychczasowym limitem rekomendacji ±2 pp.
+
+#### Naprawiono
+
+- Archiwizacja statystyk jakości Predictora v1 podczas migracji do v2, aby historyczne błędy nie zafałszowały nowej bramki jakości.
+
+#### Wydajność
+
+- Wykorzystanie istniejącego cyklu AI runtime bez nowej szybkiej pętli odpytywania i bez nowej ścieżki zapisu fizycznego PWM.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.5 — 2026-10-27
+
+### English
+
+#### Added
+
+- Add Thermal Predictor Shadow Assist with hypothetical PWM correction telemetry, activation gate diagnostics and weighted 30/60/120-second thermal forecast.
+- Expose native Home Assistant Shadow Assist sensors for suggested delta, hypothetical PWM, gate state, decision reason and weighted forecast.
+
+#### Changed
+
+- Gate future predictive control on automatic mode, good/excellent Predictor quality, confidence >=80%, average MAE <=1.25 C and at least 8 validated forecasts per horizon.
+- Bound every Shadow Assist recommendation to +/-2 percentage points and prevent negative prediction corrections while temperature trend is rising.
+
+#### Performance
+
+- Reuse the existing AI evaluator, thermal windows, relay and Home Assistant coordinator; no new polling loop or control write path is added.
+
+#### Security
+
+- Shadow Assist remains telemetry-only: control_output_enabled=false; Adaptive PWM and AI Cooling remain authoritative and all physical fan writes are unchanged.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Dodano
+
+- Dodano Thermal Predictor Shadow Assist z telemetrią hipotetycznej korekty PWM, diagnostyką bramki aktywacji i ważoną prognozą temperatury 30/60/120 s.
+- Udostępniono natywne sensory Home Assistant Shadow Assist: sugerowana delta, hipotetyczny PWM, stan bramki, powód decyzji i prognoza ważona.
+
+#### Zmieniono
+
+- Przyszłe sterowanie predykcyjne jest blokowane do czasu spełnienia warunków: tryb automatyczny, jakość Predictora good/excellent, confidence >=80%, średnie MAE <=1,25 C i co najmniej 8 zweryfikowanych prognoz na każdy horyzont.
+- Każda rekomendacja Shadow Assist jest ograniczona do +/-2 pp, a ujemna korekta predykcyjna jest blokowana przy rosnącym trendzie temperatury.
+
+#### Wydajność
+
+- Wykorzystano istniejący evaluator AI, okna termiczne, relay i koordynator Home Assistant; nie dodano nowej pętli pollingowej ani ścieżki zapisu sterowania.
+
+#### Bezpieczeństwo
+
+- Shadow Assist pozostaje wyłącznie telemetrią: control_output_enabled=false; Adaptive PWM i AI Cooling pozostają nadrzędne, a fizyczne zapisy wentylatora nie zostały zmienione.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.4 — 2026-10-27
+
+### English
+
+#### Added
+
+- Expose AI Thermal Predictor quality state as a native Home Assistant sensor and on the expanded AI card.
+
+#### Changed
+
+- Reweight AI Thermal Predictor confidence so prediction accuracy contributes 35 percent of the score; MAE around 2-3 C can no longer report confidence above 90 percent.
+
+#### Fixed
+
+- Normalize SBC5 Package Version and current runtime version surfaces structurally during every release so stale literals such as 2.8.34 cannot survive future version bumps.
+- Reconcile legacy generic restart=host CPU/OC markers only when the marker reason identifies CPU configuration and Boot Verification proves the persisted requested profile is already active.
+- Use persistent host telemetry as a Lovelace fallback for platform compatibility and show the known installed version while transient update-state publication resynchronizes after Home Assistant Core restart.
+
+#### Performance
+
+- No new polling loops and no Adaptive PWM or AI Cooling control changes; all fixes reuse existing telemetry, coordinator and runtime paths.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Dodano
+
+- Udostępniono stan jakości AI Thermal Predictor jako natywny sensor Home Assistant i na rozwijanej karcie AI.
+
+#### Zmieniono
+
+- Zmieniono wagę confidence AI Thermal Predictor: dokładność predykcji odpowiada za 35 procent wyniku, więc MAE około 2-3 C nie może już generować confidence powyżej 90 procent.
+
+#### Naprawiono
+
+- Każde wydanie strukturalnie normalizuje wersję pakietu SBC5 i bieżące powierzchnie runtime, dzięki czemu stare wartości takie jak 2.8.34 nie mogą przetrwać kolejnych aktualizacji.
+- Legacy marker restart=host o ogólnym scope jest zamykany tylko wtedy, gdy powód jednoznacznie wskazuje CPU/OC, a Boot Verification potwierdza zgodność zapisanego żądanego profilu ze stanem aktywnym.
+- Karta Lovelace korzysta z trwałej telemetrii hosta jako fallbacku zgodności platformy i pokazuje znaną wersję zainstalowaną podczas ponownej synchronizacji chwilowego statusu aktualizacji po restarcie Home Assistant Core.
+
+#### Wydajność
+
+- Bez nowych pętli odpytywania i bez zmian sterowania Adaptive PWM ani AI Cooling; poprawki wykorzystują istniejącą telemetrię, koordynator i ścieżki runtime.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.3 — 2026-10-27
+
+### English
+
+#### Added
+
+- Expose Predictor MAE, per-horizon last error, temperature slope, validated-sample count and data age through native Home Assistant sensors and the expanded AI card.
+- Expose verified Raspberry Pi host network MAC and interface diagnostics for Device Registry verification.
+
+#### Changed
+
+- Reconcile stale CPU restart markers and add AI Thermal Predictor quality diagnostics.
+
+#### Fixed
+
+- Clear stale same-boot CPU-profile restart=host markers only when Boot Verification proves the requested preset is already saved and active; generic boot/config markers remain protected until a real host reboot.
+
+#### Performance
+
+- No new polling loops; diagnostics reuse the existing AI runtime relay and 15-second native coordinator.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Dodano
+
+- Udostępniono MAE Predictora, ostatni błąd dla każdego horyzontu, trend temperatury, liczbę zweryfikowanych prognoz i wiek danych jako natywne sensory Home Assistant oraz na rozwijanej karcie AI.
+- Udostępniono diagnostykę zweryfikowanego fizycznego MAC i interfejsu sieciowego hosta Raspberry Pi do kontroli Device Registry.
+
+#### Zmieniono
+
+- Uzgodnienie osieroconych markerów restartu CPU i rozszerzona diagnostyka jakości AI Thermal Predictor.
+
+#### Naprawiono
+
+- Osierocony marker restart=host profilu CPU jest czyszczony na bieżącym boot tylko wtedy, gdy Boot Verification potwierdzi zapisany i aktywny profil; ogólne markery boot/config nadal wymagają rzeczywistego restartu hosta.
+
+#### Wydajność
+
+- Bez nowych pętli odpytywania; diagnostyka wykorzystuje istniejący relay AI runtime i 15-sekundowy natywny koordynator.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.2 — 2026-10-27
+
+### English
+
+#### Changed
+
+- AI Thermal Predictor recorder entities are now owned by the native SBC5 integration and reuse the existing AI runtime relay without an additional polling loop.
+
+#### Fixed
+
+- Fixed browser-session Lovelace synchronization so runtime templates normalize Card UI, Update Card and SBC5CC version markers to the installed release.
+- Fixed the stale 2.8.34 Update Card marker that caused verification rollback after a successful 3.1.1 update.
+- Raspberry Pi device identity now uses the physical host network interface instead of ephemeral App/container MAC addresses.
+- Device Registry migration replaces accumulated stale MAC connections with the single verified host MAC.
+
+#### Performance
+
+- No new high-frequency polling loop was added; Predictor sensors reuse the existing 15-second native coordinator and AI runtime relay.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Zmieniono
+
+- Encje Recordera AI Thermal Predictor są teraz obsługiwane przez natywną integrację SBC5 i korzystają z istniejącego przekaźnika AI runtime bez dodatkowej pętli odpytywania.
+
+#### Naprawiono
+
+- Naprawiono synchronizację Lovelace przez sesję przeglądarki: znaczniki wersji Card UI, Update Card i SBC5CC są normalizowane do zainstalowanego wydania.
+- Naprawiono stary znacznik Update Card 2.8.34, który powodował rollback weryfikacji po poprawnej aktualizacji 3.1.1.
+- Identyfikacja urządzenia Raspberry Pi korzysta teraz z fizycznego interfejsu sieciowego hosta zamiast zmiennych adresów MAC aplikacji/kontenera.
+- Migracja Device Registry zastępuje nagromadzone stare połączenia MAC jednym zweryfikowanym adresem MAC hosta.
+
+#### Wydajność
+
+- Nie dodano nowej pętli szybkiego odpytywania; sensory Predictora wykorzystują istniejący 15-sekundowy koordynator natywny i przekaźnik AI runtime.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.1 — 2026-10-27
+
+### English
+
+#### Added
+
+- Main YAML dashboard card now shows AI Thermal Predictor forecasts for +30 s, +60 s and +120 s plus predictor confidence.
+
+#### Changed
+
+- Thermal Predictor tiles use native More Info history and remain observe-only; Adaptive PWM and AI Cooling control behavior is unchanged.
+
+#### Fixed
+
+- Card UI version markers are synchronized with the unified 3.1.1 release instead of the stale 2.8.34 marker.
+
+#### Performance
+
+- No additional polling loop, frontend background renderer or host restart is introduced.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Dodano
+
+- Główna karta YAML pokazuje prognozy AI Thermal Predictor +30 s, +60 s i +120 s oraz pewność predyktora.
+
+#### Zmieniono
+
+- Kafelki Thermal Predictor korzystają z natywnej historii More Info i pozostają obserwacyjne; sterowanie Adaptive PWM i AI Cooling nie zostało zmienione.
+
+#### Naprawiono
+
+- Znaczniki wersji Card UI są synchronizowane z wydaniem 3.1.1 zamiast starego oznaczenia 2.8.34.
+
+#### Wydajność
+
+- Nie dodano dodatkowej pętli pollingu, procesu renderującego w tle ani wymogu restartu hosta.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.1.0 — 2026-10-27
+
+### English
+
+#### Added
+
+- AI Thermal Predictor forecasts CPU temperature 30, 60 and 120 seconds ahead without controlling PWM.
+- Online forecast validation measures prediction MAE and derives predictor confidence from real runtime outcomes.
+- Recorder-friendly Home Assistant sensors expose 30/60/120-second forecasts and predictor confidence.
+
+#### Changed
+
+- Adaptive PWM and AI Cooling remain authoritative; Thermal Predictor is observe-only in 3.1.0.
+
+#### Performance
+
+- Thermal Predictor reuses the existing 10-second AI evaluation cycle and temperature window; no extra polling loop or background process is introduced.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Dodano
+
+- AI Thermal Predictor prognozuje temperaturę CPU z wyprzedzeniem 30, 60 i 120 sekund bez sterowania PWM.
+- Walidacja online mierzy błąd MAE prognoz i wylicza confidence predyktora na podstawie rzeczywistych wyników runtime.
+- Dodano sensory Home Assistant przyjazne Recorderowi dla prognoz 30/60/120 s oraz confidence predyktora.
+
+#### Zmieniono
+
+- Adaptive PWM i AI Cooling pozostają nadrzędne; Thermal Predictor w 3.1.0 działa wyłącznie obserwacyjnie.
+
+#### Wydajność
+
+- Thermal Predictor wykorzystuje istniejący 10-sekundowy cykl AI i okno temperatury; nie dodaje nowej pętli pollingu ani osobnego procesu.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.0.4 — 2026-10-27
+
+### English
+
+#### Changed
+
+- Default Config.txt Manager sync interval is now 30 seconds; existing values below 30 seconds remain accepted for compatibility but are clamped to a 30-second runtime watchdog.
+
+#### Performance
+
+- Raised the effective Config.txt Manager watchdog floor from 5 seconds to 30 seconds while preserving immediate event-driven UI reloads.
+- Reduced compact AI relay signature checks from every 15 seconds to every 30 seconds; the AI evaluator remains at 10 seconds.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Zmieniono
+
+- Domyślny interwał synchronizacji Config.txt Manager wynosi teraz 30 sekund; starsze wartości poniżej 30 sekund pozostają akceptowane dla zgodności, ale runtime stosuje minimum 30 sekund.
+
+#### Wydajność
+
+- Podniesiono efektywne minimum watchdoga Config.txt Manager z 5 do 30 sekund, zachowując natychmiastowe przeładowanie po zapisie z UI.
+- Zmniejszono częstotliwość sprawdzania podpisu kompaktowego relay AI z 15 do 30 sekund; evaluator AI nadal działa co 10 sekund.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.0.3 — 2026-10-27
+
+### English
+
+#### Changed
+
+- Expose the effective control-log sampling and AI-log keepalive policy in the startup Performance line.
+
+#### Performance
+
+- Sample routine Adaptive PWM write logs while preserving immediate safety/action logs and unchanged 10-second control execution.
+- Reduce AI Cooling steady-state logging to state/model changes plus a 5-minute keepalive; evaluator cadence remains unchanged.
+
+#### Security
+
+- Safety-critical ownership, write-failure, fast-response and sign-guard logs remain immediate.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Zmieniono
+
+- Pokazanie efektywnej polityki próbkowania logów regulatora i keepalive AI w linii Performance przy starcie.
+
+#### Wydajność
+
+- Próbkowanie rutynowych logów zapisów Adaptive PWM przy zachowaniu natychmiastowych logów bezpieczeństwa i niezmienionego cyklu sterowania 10 s.
+- Ograniczenie logów AI Cooling w stanie ustalonym do zmian stanu/modelu i 5-minutowego keepalive; częstotliwość ewaluatora pozostaje bez zmian.
+
+#### Bezpieczeństwo
+
+- Krytyczne logi ownership, błędów zapisu, szybkiej reakcji i sign-guard pozostają natychmiastowe.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.0.2 — 2026-10-27
+
+### English
+
+#### Changed
+
+- Runtime efficiency hotfix: event-style local ZIP detection and correct Supervisor profile signature comparison eliminate redundant steady-state work.
+
+#### Fixed
+
+- Canonicalized Supervisor profile signatures so unchanged native profile options no longer trigger false imports every reconciliation cycle.
+
+#### Performance
+
+- Replaced full local ZIP parsing every two minutes with a lightweight filename/size/mtime signature; full ZIP validation now runs only when the local update directory actually changes.
+- Adaptive PWM, AI Cooling, fan calibration and the verified 49°C boot curve are unchanged.
+
+#### Upgrade notes
+
+- No restart is required.
+
+### Polski
+
+#### Zmieniono
+
+- Hotfix wydajności runtime: zdarzeniowe wykrywanie lokalnych ZIP i poprawne porównanie podpisu profili Supervisor eliminują zbędną pracę w stanie ustalonym.
+
+#### Naprawiono
+
+- Ujednolicono podpisy profili Supervisor, dzięki czemu niezmienione opcje natywne nie wywołują już pozornego importu w każdym cyklu uzgadniania.
+
+#### Wydajność
+
+- Zastąpiono pełne parsowanie lokalnych ZIP co dwie minuty lekkim podpisem nazwa/rozmiar/mtime; pełna walidacja ZIP uruchamia się tylko po rzeczywistej zmianie katalogu aktualizacji.
+- Adaptive PWM, AI Cooling, kalibracja wentylatora i zweryfikowana krzywa boot 49°C pozostają bez zmian.
+
+#### Informacje o aktualizacji
+
+- Restart nie jest wymagany.
+
+## 3.0.1 — 2026-10-27
+
+### Optimized / Zoptymalizowano
+- Increased steady-state CPU/GPU profile reconciliation from 30 s to 300 s, reducing Supervisor API reads and repeated profile synchronization work when configuration is unchanged.
+- Removed the redundant update check from Home Assistant availability restoration and staggered the local-package watcher startup, preventing back-to-back update discovery during startup.
+- Aligned Rust Core, App/runtime, integration, package and Card UI version surfaces to 3.0.1.
+
+### Safety / Bezpieczeństwo
+- Adaptive PWM control logic, AI Cooling model/qualification, fan calibration and the verified 15-point 49°C boot curve are unchanged.
+- No host restart is required by this App-only maintenance update.
+
+## 3.0.0 — 2026-10-27
+
+### English
+
+#### Added
+
+- Hybrid Rust Core for low-overhead Raspberry Pi 5 host telemetry and runtime-health reporting, with automatic fallback to the proven compatibility/control plane.
+- Verified Store migration handoff with SHA-256 validation, target backup and rollback for AI Cooling data, fan calibration, CPU/GPU profiles, custom-curve state and user options.
+
+#### Changed
+
+- The proven shell/Python control plane remains authoritative for fan safety, Adaptive PWM, AI Cooling, CPU/GPU profiles and update/recovery workflows while the Rust core owns lightweight native telemetry/runtime health.
+- Card UI release version is rendered dynamically before Lovelace synchronization so the stored dashboard and App release remain aligned.
+
+#### Fixed
+
+- Persist the complete imported App option set into the Supervisor option store before migration finalization, preventing stale target defaults from replacing migrated 49°C / AI Assist settings after an App restart.
+- Treat completed namespace migration as authoritative for canonical SBC5 control ownership while retaining the explicit owner interlock during incomplete migration.
+- Recover a safe orphaned `mode=disabled` thermal-zone takeover after App rebuild/update when `custom1` is active, `max_state >= 100`, `cur_state` is writable and namespace migration is complete.
+- Align Rust, bootstrap and image version surfaces at build time so package/runtime version checks use the same public release version.
+
+#### Performance
+
+- Native Rust telemetry/runtime-health path uses a small dependency-free release binary while preserving the existing optimized Home Assistant relay intervals and control-loop cadence.
+
+#### Upgrade notes
+
+- The App-only 3.0.0 update does not require a Home Assistant or Raspberry Pi host restart. A separately managed HACS integration follows its own release/restart requirements.
+- Real-device Gate 2 passed on Raspberry Pi 5 with Home Assistant Core 2026.10.4 / HA OS 18.4.rc2: preserved 49°C custom1, AI Assist/model data, CPU Mild 2500 MHz, GPU Balanced, Adaptive PWM ownership/control, Card UI synchronization and stable fallback were verified.
+
+### Polski
+
+#### Dodano
+
+- Hybrydowy Rust Core do lekkiej telemetrii hosta Raspberry Pi 5 i kontroli zdrowia runtime, z automatycznym fallbackiem do sprawdzonej warstwy zgodności/sterowania.
+- Zweryfikowany handoff migracji Store z walidacją SHA-256, backupem celu i rollbackiem dla danych AI Cooling, kalibracji wentylatora, profili CPU/GPU, stanu krzywej custom1 i opcji użytkownika.
+
+#### Zmieniono
+
+- Sprawdzona warstwa shell/Python pozostaje nadrzędna dla bezpieczeństwa wentylatora, Adaptive PWM, AI Cooling, profili CPU/GPU oraz aktualizacji/recovery, natomiast Rust obsługuje lekką natywną telemetrię i runtime health.
+- Wersja Card UI jest podstawiana dynamicznie przed synchronizacją Lovelace, dzięki czemu zapisany dashboard pozostaje zgodny z wersją aplikacji.
+
+#### Naprawiono
+
+- Pełny zestaw zaimportowanych opcji aplikacji jest utrwalany w natywnym magazynie opcji Supervisor przed zakończeniem migracji, dzięki czemu stare wartości domyślne celu nie zastępują po restarcie ustawień 49°C / AI Assist.
+- Zakończona migracja namespace jest nadrzędnym potwierdzeniem prawa sterowania dla kanonicznego SBC5, przy zachowaniu jawnego interlocka właściciela podczas niedokończonej migracji.
+- Bezpiecznie odzyskiwane jest osierocone przejęcie thermal zone `mode=disabled` po przebudowie/aktualizacji aplikacji, gdy aktywny jest `custom1`, `max_state >= 100`, `cur_state` jest zapisywalny i migracja namespace ma stan COMPLETE.
+- Ujednolicono wersję Rust, bootstrapu i obrazu podczas budowania, aby kontrole wersji pakietu/runtime korzystały z jednej publicznej wersji wydania.
+
+#### Wydajność
+
+- Natywna ścieżka Rust telemetrii/runtime health korzysta z małego binarium release bez zewnętrznych zależności, zachowując zoptymalizowane interwały relay Home Assistant i częstotliwość pętli sterowania.
+
+#### Informacje o aktualizacji
+
+- Aktualizacja samej aplikacji do 3.0.0 nie wymaga restartu Home Assistant ani hosta Raspberry Pi. Osobno zarządzana integracja HACS ma własne wymagania wersji/restartu.
+- Gate 2 na realnym Raspberry Pi 5 z Home Assistant Core 2026.10.4 / HA OS 18.4.rc2 przeszedł poprawnie: zweryfikowano zachowanie custom1 49°C, AI Assist/modelu, CPU Mild 2500 MHz, GPU Balanced, przejęcie i pracę Adaptive PWM, synchronizację Card UI oraz bezpieczny powrót do stabilnej wersji.
+
+## 2.8.32 — 2026-10-26
+
+### English
+
+- Runtime robustness hotfix: guarantees writable runtime scratch storage, hardens AI qualification templates against partial telemetry, throttles repeated boot/config write warnings when Host Access is unavailable, and adds explicit Protection Mode/Host PID diagnostics. No Adaptive PWM, AI Cooling model/qualification, fan calibration, CPU/GPU profile, or boot-control algorithm changes.
+- Restart requirement: `home_assistant`.
+
+### Polski
+
+- Hotfix odporności runtime: gwarantuje zapisywalny katalog roboczy runtime, zabezpiecza szablony kwalifikacji AI na niepełną telemetrię, ogranicza powtarzane komunikaty o niedostępnym config.txt i dodaje jawną diagnostykę Protection Mode/Host PID. Bez zmian Adaptive PWM, modelu/kwalifikacji AI Cooling, kalibracji wentylatora, profili CPU/GPU ani algorytmów sterowania boot.
+- Wymagany restart: `home_assistant`.
+
+## 2.8.31 — 2026-10-26
+
+### English
+
+- Migration finalization hotfix: imported durable CPU/GPU profile state now wins over stale Store/Supervisor defaults until native App options are synchronized; adds a verified manifest-driven local ZIP packer and automatic release asset publishing. No Adaptive PWM, AI Cooling, fan calibration or boot-control algorithm changes.
+- Restart requirement: `home_assistant`.
+
+### Polski
+
+- Hotfix finalizacji migracji: zaimportowany trwały stan profili CPU/GPU ma teraz pierwszeństwo przed starymi domyślnymi wartościami Store/Supervisor do czasu synchronizacji natywnych opcji aplikacji; dodano zweryfikowany generator lokalnych ZIP-ów oparty na manifeście i automatyczną publikację paczki w Release. Bez zmian Adaptive PWM, AI Cooling, kalibracji wentylatora ani algorytmów sterowania boot.
+- Wymagany restart: `home_assistant`.
+
+## 2.8.30 — 2026-10-26
+
+### English
+
+- Migration/Hybrid release: safe local-to-Apps Store handoff preserves AI, fan calibration, CPU/GPU profiles and user options with SHA-256 validation and rollback; hybrid local ZIP updates delegate full Store runtime updates to Supervisor while retaining direct UI-only ZIP support. No cooling or AI control algorithm changes.
+- Restart requirement: `home_assistant`.
+
+### Polski
+
+- Wydanie Migration/Hybrid: bezpieczny handoff Local → Apps Store zachowuje AI, kalibrację wentylatora, profile CPU/GPU i opcje użytkownika z walidacją SHA-256 oraz rollbackiem; hybrydowe lokalne ZIP-y delegują pełną aktualizację runtime wersji sklepowej do Supervisora, zachowując bezpośrednie aktualizacje UI-only. Bez zmian algorytmów chłodzenia ani sterowania AI.
+- Wymagany restart: `home_assistant`.
+
+## 2.8.29 — 2026-10-26
+
+### English
+
+- App Store and automatic update delivery release. Adds the required Home Assistant Apps repository metadata, supports runtime slugs used by custom App repositories, publishes GitHub Releases automatically after green CI for both the main App and HACS integration, and documents automatic update detection. No cooling, AI, CPU/GPU or boot-control algorithm changes.
+- Restart requirement: `home_assistant`.
+
+### Polski
+
+- Wydanie obsługi sklepu Apps i automatycznej dystrybucji aktualizacji. Dodaje wymagane metadane repozytorium Home Assistant Apps, obsługę slugów runtime używanych przez niestandardowe repozytoria Apps, automatyczne publikowanie GitHub Releases po zielonym CI dla głównej aplikacji i integracji HACS oraz opis automatycznego wykrywania aktualizacji. Bez zmian algorytmów chłodzenia, AI, CPU/GPU ani sterowania boot.
+- Wymagany restart: `home_assistant`.
+
+## 2.8.28 — 2026-10-26
+
+### English
+
+- First-installation documentation release: adds a complete beginner-friendly Home Assistant installation guide covering the App/runtime repository, first start checks, HACS integration, required frontend dependencies, device verification and dashboard setup. It also adds self-maintaining CI and release automation. No cooling, AI, CPU/GPU or boot-configuration logic changes.
+- Restart requirement: `home_assistant`.
+
+### Polski
+
+- Wydanie dokumentacyjne pierwszej instalacji: dodaje kompletny przewodnik dla początkujących obejmujący repozytorium App/runtime, kontrolę pierwszego uruchomienia, integrację HACS, wymagane zależności frontendowe, weryfikację urządzenia i konfigurację dashboardu. Dodaje także samoutrzymującą walidację CI i automatyzację wydań. Bez zmian logiki chłodzenia, AI, CPU/GPU ani konfiguracji boot.
+- Wymagany restart: `home_assistant`.
+
+## 2.8.26 — 2026-10-25
+
+### English
+
+- Documentation and branding release: complete English/Polish documentation, professional SBC5 branding, clickable App/HACS links and persistent release templates.
+- Restart requirement: `home_assistant`.
+
+### Polski
+
+- Wydanie dokumentacyjne i brandingowe: pełna dokumentacja polska/angielska, profesjonalny branding SBC5, klikalne linki App/HACS oraz trwałe szablony kolejnych wydań.
+- Wymagany restart: `home_assistant`.
+
+Historia zmian projektu. Aktualny stan, instalacja i obsługa są opisane w `INFO.md`, `DOCUMENTATION.md` oraz `docs/QUICK_SETUP.md`. Starsza historia sprzed gałęzi 2.8.x pozostaje w `docs/CHANGELOG_ARCHIVE_PRE_2.8.0.md`.
+
+## 2.8.27 — Dependency Documentation (2026-10-26)
+
+- Uzupełniono stronę HACS/README i `info.md` o jednoznaczną sekcję wymaganych zależności dla kompletnego interfejsu Lovelace: **Mushroom**, **card-mod** i **ApexCharts Card**.
+- Rozdzielono wymagania rdzenia (App/runtime + natywna integracja) od zależności frontendowych dashboardu, aby nie sugerować, że karty są wymagane do samego działania encji integracji.
+- Zaktualizowano kolejność instalacji w README, Dokumentacji i Quick Setup oraz trwałe szablony publikacji HACS.
+- Zmiany są wyłącznie dokumentacyjne/publikacyjne; logika chłodzenia, Adaptive PWM, AI Cooling, profile CPU/GPU, telemetria i konfiguracja boot pozostają bez zmian.
+- Aktualizacja zunifikowanego buildu wymaga restartu Home Assistant. Restart Raspberry Pi nie jest wymagany przez tę zmianę.
+
+## 2.8.26 — Bilingual Documentation & Branding (2026-10-25)
+
+- Uzupełniono dwujęzyczną dokumentację projektu i profesjonalny branding SBC5.
+- Dodano klikalne powiązania między główną aplikacją/runtime a repozytorium integracji HACS oraz trwałe szablony publikacji.
+- Zmiany nie modyfikowały logiki chłodzenia, AI, CPU/GPU ani konfiguracji boot.
+
+## 2.8.25 — CPU Profile Restart Guard Hotfix
+
+- Naprawiono fałszywe żądanie pełnego restartu Raspberry Pi po aktualizacji przy niezmienionym profilu CPU/OC: `sbc5cc-cpu-profile.txt` nie jest już porównywany bajt-po-bajcie względem komentarza zawierającego wersję aplikacji.
+- Dodano semantyczne porównanie dedykowanego profilu CPU/OC. Zmiana samego nagłówka wersji jest ignorowana, natomiast rzeczywiste zmiany `arm_freq`, parametrów OC lub obecności `include` nadal prawidłowo powodują `restart=host`.
+- Nowo zapisywane pliki profilu CPU używają stabilnego nagłówka bez numeru wersji, aby kolejne aktualizacje aplikacji nie modyfikowały konfiguracji boot wyłącznie z powodu metadanych.
+- Dodano bezpieczne czyszczenie znanego fałszywego markera z 2.8.24. Marker jest usuwany tylko wtedy, gdy jego zakres to `cpu_profile`, pochodzi z 2.8.24, bieżący profil i bezpośredni backup są semantycznie identyczne oraz `include sbc5cc-cpu-profile.txt` istniał zarówno przed, jak i po zapisie.
+- Zachowano ochronę dla prawdziwych zmian CPU/OC: zmiana np. Mild 2500 MHz → Balanced 2600 MHz nadal wymaga pełnego restartu Raspberry Pi i Boot Verification.
+- Aktualizacja 2.8.25 wymaga restartu Home Assistant w celu przeładowania pełnego buildu. **Restart Raspberry Pi nie jest wymagany przez ten hotfix**, jeśli użytkownik nie zmienił rzeczywistej konfiguracji boot.
+- Adaptive PWM, AI Cooling, kwalifikacja próbek, kalibracja i układ karty 2.8.24 pozostają funkcjonalnie bez zmian.
+
+## 2.8.24 — Collapsible Mobile Card Sections
+
+- Przebudowano kartę aktualizacji: kafelek **SBC5 Control Center** przełącza widoczność pozostałych opcji; status paczki, akcje, instalacja i Restart Manager są domyślnie schowane.
+- Przebudowano sekcję **AI Cooling**: główny kafelek pozostaje zawsze widoczny, a diagnostyka uczenia, historia predykcji, pokrycie, kwalifikacja próbki i narzędzia siatki są rozwijane dopiero po dotknięciu.
+- Dodano kafelek **Zegar CPU**, który rozwija osobne kafelki CPU0–CPU3; szczegóły rdzeni są domyślnie schowane.
+- Przeniesiono sekcję **CPU / Overclocking** bezpośrednio pod wykres temperatury CPU/PWM i nad **GPU / V3D / ISP**. Dotychczasowe niezależne rozwijanie wyboru profilu CPU oraz GPU zostało zachowane.
+- Dodano trzy helpery UI: `input_boolean.sbc5_update_controls_visible`, `input_boolean.sbc5_ai_controls_visible` i `input_boolean.sbc5_cpu_clock_details_visible`; wszystkie startują jako `off`.
+- Uporządkowano `README`, `INFO`, dokumentację i Quick Setup w spójny układ GitHub-style; usunięto z dokumentacji treści historyczne i zduplikowane nagłówki, pozostawiając historię wyłącznie w changelogu.
+- Zmiany dotyczą warstwy UI/package i dokumentacji. Adaptive PWM, AI Cooling, kwalifikacja próbek, profile sprzętowe, Restart Guard i szybkie ścieżki telemetrii pozostają bez zmian.
+- Aktualizacja pełnego buildu wymaga restartu Home Assistant z powodu nowych helperów Package. Restart Raspberry Pi nie jest wymagany przez tę zmianę.
+
+## 2.8.23 — Config Restart Guard Hotfix
+
+- Naprawiono fałszywe żądanie pełnego restartu Raspberry Pi po aktualizacji: automatyczna synchronizacja `sbc5cc-managed.txt` nie traktuje już zmiany numeru wersji w komentarzu nagłówka jako zmiany semantyki `config.txt`.
+- Porównanie pliku zarządzanego jest teraz semantyczne dla nagłówka wersji; rzeczywista zmiana parametrów boot nadal tworzy `restart=host` bez osłabiania zabezpieczeń Restart Managera.
+- Dodano bezpieczną migrację dla błędu 2.8.22: marker restartu hosta jest automatycznie usuwany tylko wtedy, gdy pochodzi z dokładnie znanego zapisu Config Options 2.8.22, bieżący plik i jego bezpośredni backup różnią się wyłącznie numerem wersji komentarza, a telemetria nie wykrywa różnicy `saved != active`.
+- Post-update state zachowuje typ restartu zadeklarowany przez wydanie i nie jest już sztucznie promowany do `host` przez niezależne, wcześniej istniejące żądanie restartu boot. Niezależny restart hosta nadal ma priorytet w bieżącym stanie Restart Managera.
+- Zmieniono tytuł flow Home Assistant Repairs z mylącego „Dokończ aktualizację” na neutralny komunikat o wymaganym restarcie, ponieważ to samo Repair obsługuje także zmiany konfiguracji boot.
+- Aktualizacja 2.8.23 wymaga restartu Home Assistant w celu przeładowania bridge/package. **Pełny restart Raspberry Pi nie jest wymagany przez ten hotfix** i pozostaje wymagany wyłącznie po realnej zmianie konfiguracji boot/Device Tree.
+- Adaptive PWM, AI Cooling, limity bezpieczeństwa i częstotliwości telemetrii pozostają bez zmian.
+
+## 2.8.22 — Raspberry Pi Device Identity & Firmware Diagnostics
+
+- Rozszerzono natywne `DeviceInfo` Home Assistant o pełny model Raspberry Pi, identyfikator rewizji płyty (`model_id`), wersję sprzętu, numer seryjny i połączenie MAC; wersja oprogramowania urządzenia nadal odpowiada zunifikowanej wersji SBC5 Control Center.
+- Dodano lekkie, buforowane (300 s) zbieranie statycznej identyfikacji hosta: rewizji płyty, numeru seryjnego, MAC, Home Assistant OS, firmware Raspberry Pi i wersji bootloadera EEPROM.
+- Dodano encje diagnostyczne `SBC5 Operating System`, `SBC5 Kernel`, `SBC5 Architecture`, `SBC5 Raspberry Pi Firmware` i `SBC5 Bootloader Firmware`; `SBC5 System Info` zawiera również model, model ID, HW Rev, serial, MAC, OS i firmware.
+- Schemat telemetrii hosta podniesiono do 11; natywna integracja i fallback REST obsługują nowe pola z zachowaniem zgodności ze starszymi snapshotami.
+- Nie zmieniono Adaptive PWM, AI Cooling, zabezpieczeń termicznych ani częstotliwości szybkiej telemetrii. Dane identyfikacyjne są odświeżane co 300 s, aby zachować optymalizacje obciążenia z 2.8.21.
+- Aktualizacja wymaga restartu Home Assistant, aby przeładować integrację i zarejestrować nowe encje. Restart Raspberry Pi nie jest wymagany przez tę zmianę.
+
+## 2.8.21 — Lightweight HA Runtime
+
+- Rozdzielono szybki stan AI od ciężkiego `sensor.sbc5_control_center_host_telemetry`: AI korzysta z kompaktowego `sensor.sbc5_control_center_ai_runtime` ocenianego co 15 s i publikowanego po zmianie (z 5-minutowym keepalive), a pełny relay hosta co 30 s.
+- Native bridge pobiera pełną telemetrię przede wszystkim z pliku współdzielonego zamiast wymagać częstego dużego wpisu REST w maszynie stanów Home Assistanta; główny coordinator pracuje co 15 s, natomiast temperatura i wentylator pozostają na lekkiej ścieżce 5 s.
+- Szablony AI i karta Lovelace zostały odpięte od dużego host-relay; stan profili CPU/GPU korzysta z już synchronizowanych `input_select`, dzięki czemu zmiany profili nie wymagają cyklicznego renderowania od pełnej telemetrii.
+- Usunięto zmienny `sample_age_s` z atrybutów encji i wyłączono wiek próbki z porównania snapshotów, ograniczając puste aktualizacje stanu przy niezmienionych wartościach.
+- Keepalive stanów UX zmniejszono z 30 s do 5 min przy zachowaniu 10-sekundowego wykrywania restartu Core; test dostępności używa lekkiego `/api/` zamiast pełnego `/api/config`.
+- Po zakończeniu migracji namespace Curve Editor nie publikuje już równolegle nieużywanego aliasu `sensor.sbc5_fan_curve_editor`; alias pozostaje wyłącznie na czas migracji.
+- Reconciler profili Supervisor pracuje co 30 s zamiast 15 s, diagnostyka zużycia procesu jest publikowana co 60 s zamiast 30 s, a Restart Manager pomija ponowną publikację identycznego stanu.
+- Usunięto podwójny odczyt cgroup CPU w pomiarze wydajności. Bezczynny watcher zdrowia aktualizacji przechodzi na 60 s i wraca do 10 s wyłącznie podczas oczekiwania na Phase B. Adaptive PWM pozostaje na 10 s, lekka telemetria temperatury/RPM/PWM na 5 s, a algorytm AI Cooling i zabezpieczenia termiczne nie zostały spowolnione.
+- Aktualizacja wymaga restartu Home Assistant w celu przeładowania bridge/package. Restart Raspberry Pi nie jest wymagany, o ile osobno nie oczekuje na niego zmiana `config.txt` lub profilu sprzętowego.
+
+## 2.8.20 — Configuration Action Feedback
+
+- Przycisk **Zapisz konfigurację** w interfejsie Ingress pokazuje teraz stan „Zapisywanie…”, zielone potwierdzenie `✓ Zapisano` po sukcesie oraz czerwone `✕ Błąd zapisu` po niepowodzeniu.
+- Przycisk **Odśwież** pokazuje analogicznie „Odświeżanie…”, zielone `✓ Odświeżono` lub czerwone `✕ Błąd`.
+- Podczas wykonywania operacji odpowiedni przycisk jest czasowo blokowany, co zapobiega wielokrotnemu wysłaniu tej samej akcji.
+- Potwierdzenie pozostaje widoczne około 2,6 s, po czym przycisk automatycznie wraca do zwykłego wyglądu i etykiety.
+- Zmiana jest lokalna dla warstwy Ingress UI i nie dodaje nowych timerów sieciowych ani częstszej telemetrii; zachowane są optymalizacje obciążenia 2.8.18 oraz zachowanie profili z 2.8.19.
+- Aktualizacja nie wymaga restartu Raspberry Pi. Pełny build wymaga standardowego restartu Home Assistant, aby wszystkie składowe wersji były spójne.
+
+## 2.8.19 — Collapsible CPU/GPU Profile Controls
+
+- Kafelek stanu CPU/OC przełącza teraz widoczność pól wyboru profilu i przycisku zastosowania; po uruchomieniu Home Assistanta sekcja jest domyślnie zwinięta.
+- Kafelek stanu GPU/V3D/ISP niezależnie przełącza widoczność wyboru presetu, przycisku zastosowania oraz skrótu do ustawień zaawansowanych; sekcja również startuje zwinięta.
+- Długie przytrzymanie kafelka stanu CPU lub GPU zachowuje akcję More Info, dzięki czemu historia i atrybuty encji pozostają dostępne.
+- Dodano helpery `input_boolean.sbc5_cpu_profile_controls_visible` i `input_boolean.sbc5_gpu_profile_controls_visible`, oba z `initial: false`.
+- Zmiana dotyczy wyłącznie warstwy Lovelace/Package; Adaptive PWM, AI Cooling, profile CPU/GPU, synchronizacja Supervisor i optymalizacje obciążenia 2.8.18 pozostają bez zmian.
+- Aktualizacja wymaga restartu Home Assistant z powodu nowych helperów Package; restart Raspberry Pi nie jest wymagany.
+
+## 2.8.18 — HA Load Optimization
+
+- Usunięto stały zapis `/data/profile_supervisor_sync_state.json` w bezczynnej pętli synchronizacji profili; stan zgodny nie generuje już zapisu pliku co cykl.
+- Reconciler CPU/GPU wykonuje jeden odczyt Supervisor na cykl zamiast dwóch i pracuje co 15 s zamiast co 5 s; natychmiastowe ścieżki zmian z YAML/Ingress pozostają bez zmian.
+- Live-sync strony Konfiguracja został ograniczony z 5 s do 15 s i nadal działa tylko przy otwartej, aktywnej stronie.
+- Siedem diagnostycznych encji historii AI dodanych wcześniej do Recorder jest teraz próbkowanych co 30 s zamiast renderować się przy każdym 10-sekundowym snapshotcie telemetrii.
+- Adaptive PWM, AI Cooling, kwalifikacja próbek, telemetria sterująca 5/10 s, limity bezpieczeństwa, kalibracja oraz profile CPU/GPU nie zostały spowolnione.
+- Aktualizacja wymaga restartu Home Assistant; restart Raspberry Pi jest potrzebny tylko wtedy, gdy wybrany profil zmieni `config.txt`.
+
+## 2.8.17 — Synchronizacja natywnej Konfiguracji Supervisor
+
+- Poprawiono rozbieżność, w której karta YAML i telemetria pokazywały aktywny profil CPU/GPU, natomiast natywna zakładka **Konfiguracja** Home Assistanta nadal prezentowała stare wartości `factory/off`.
+- Profile CPU/GPU są teraz zapisywane do trwałego magazynu opcji Supervisor przez oficjalny endpoint `/addons/self/options`; `/data/options.json` pozostaje lokalnym plikiem runtime, a nie źródłem formularza Supervisor.
+- Dodano dwukierunkowe uzgadnianie stanu: wybór z YAML lub Ingress jest propagowany do Supervisor, a jawna zmiana w natywnej Konfiguracji — również `Factory` i wyłączenie sekcji — jest importowana do trwałego stanu SBC5.
+- Dodano `/data/profile_supervisor_sync_state.json`, który przechowuje podpis ostatniego stanu zapisanego przez SBC5. Dzięki temu po aktualizacji/reboocie stare wartości domyślne nie są mylone ze świadomą zmianą użytkownika.
+- Synchronizacja modyfikuje w Supervisor wyłącznie pola profili CPU/GPU i zachowuje pozostałe opcje aplikacji. Dla aktywnego profilu GPU nadal automatycznie utrzymywany jest włączony Config.txt Manager.
+- Przy pierwszym uruchomieniu 2.8.17 trwały stan CPU/GPU ma pierwszeństwo nad niesynchronizowanym formularzem ze starszej wersji i jest do niego jednorazowo zapisany.
+- Adaptive PWM, AI Cooling, kwalifikacja próbek, limity bezpieczeństwa wentylatora i kalibracja nie zostały zmienione.
+- Po instalacji wymagany jest restart Home Assistant zgodnie ze standardowym pełnym zakresem aktualizacji; sam mechanizm synchronizacji profili nie wymaga restartu Raspberry Pi, chyba że wybrany profil zmieni `config.txt`.
+
+## 2.8.16 — Profile State Reconciliation & History Everywhere
+
+- CPU and GPU requested profiles now use one persistent source of truth across Lovelace/YAML, Ingress WWW and the native Supervisor Configuration tab.
+- Startup restores the durable CPU/GPU request before the first options snapshot, preventing transient schema defaults from falsely reverting an existing profile.
+- A stable 5-second reconciler detects real later Configuration changes, including an explicit switch to Factory, canonicalizes preset values and propagates the result to telemetry and Lovelace selectors.
+- Ingress Configuration live-syncs external profile changes every 5 seconds while the form is clean; unsaved local edits are never overwritten.
+- CPU Advanced is now a valid Lovelace selector option, matching the web/native profile set.
+- Canonical host telemetry schema 10 publishes `config_cpu_profile` and `config_gpu_profile` from persistent requested state.
+- Parameter tiles that previously had no history action now open Home Assistant More Info / Recorder history. AI maturity, observations, qualified samples, model coverage, workload, stable time and grid coverage gained dedicated numeric Recorder entities.
+- The existing expandable 24-hour AI Prediction graph is retained; its tile also keeps More Info on hold.
+- Adaptive PWM, AI qualification/control law, fan safety bounds, slew limits and calibration logic are unchanged.
+
+## 2.8.15 — Persistent GPU Profile State & Reboot Recovery
+
+- Added `/data/gpu_profile_state.json` as the durable source of truth for GPU / V3D / ISP presets, mirroring the proven CPU Profile Manager persistence model.
+- Dashboard selections such as **Balanced** now survive a full Raspberry Pi reboot even if Supervisor/App options temporarily return their schema default (`factory`, Config Manager disabled).
+- Added upgrade recovery for 2.8.12–2.8.14: when no GPU state file exists, SBC5 inspects its existing `sbc5cc-managed.txt` and imports the already-written core / ISP / V3D preset instead of reverting it to Factory.
+- Dynamic Configuration UI reads and writes the same persistent GPU state; reset/save operations update it atomically.
+- A persisted GPU request re-enables Config Manager before boot configuration synchronization, preserving the requested preset and dashboard selector after restart.
+- `set_gpu_profile` now stores the requested profile and resolved preset values before synchronizing `config.txt`; success is reported only after durable state and Config Manager synchronization both succeed.
+- CPU Profile Manager, Adaptive PWM, AI Cooling, fan reconciliation and calibration algorithms are unchanged.
+
+## 2.8.14 — Fan Profile Reconciliation & Cooling Health Guard
+
+- Added startup reconciliation for the requested Active Cooler profile. When `custom1` is requested but the kernel exposes `max_state < 100`, SBC5 checks the active `config.txt` and `rpi5-custom1.dtbo` before allowing Adaptive PWM to resume.
+- Missing `custom1` boot artifacts are repaired automatically **once per host boot_id**. The repair creates the normal backup, rewrites the managed fan block and requests a full Raspberry Pi restart; repeated app restarts do not rewrite `config.txt` in a loop.
+- If `config.txt` and DTBO are already present but the kernel still reports the factory grid, SBC5 reports `overlay_written_not_loaded` instead of blindly rewriting the boot configuration. If this persists across a new boot after an automatic repair, the state escalates to `overlay_not_loaded_after_reboot`.
+- Adaptive PWM keeps the existing safety rule: it never takes userspace ownership while `max_state < 100`; kernel cooling remains the fallback. Once the 1% grid becomes active, the existing controller loop can safely retake ownership.
+- Update Health Check Phase B now validates the requested cooling profile in addition to runtime, relay, bridge and native HA entities. A full update is not finalized while `custom1` is requested but the 1% cooling grid is inactive.
+- The Lovelace profile-status tile now exposes the reconciliation reason/message, making automatic repair, pending reboot and overlay-load failures visible without reading logs.
+- GPU/V3D/ISP presets, dashboard selector and Advanced mode from 2.8.13 are retained unchanged.
+- No changes to the Adaptive PWM control law, AI Cooling model/qualification, slew limits, emergency handoff or fan calibration algorithm.
+
+## 2.8.13 — GPU presets directly from the dashboard
+
+- Added a Lovelace selector for GPU / V3D / ISP profiles: Factory, Eco, Balanced, Performance, Experimental and Advanced.
+- Added `script.sbc5_gpu_apply_profile` and `set_gpu_profile` stdin command so the dashboard selection is applied to `config.txt`, not only displayed in UI.
+- The GPU selector is synchronized with the profile stored by the app through canonical host telemetry.
+- Applying a GPU preset from Lovelace explicitly enables the GPU section and Config.txt Manager, creates the normal backup path and lets Restart Manager request a full Raspberry Pi reboot only when the generated boot configuration changes.
+- Advanced remains the manual profile; its values are edited in position 22 of the Configuration tab. Factory is the one-click restore to firmware-managed clocks.
+- Updated Info, Documentation, Quick Setup and GPU profile reference for the dashboard workflow.
+- Adaptive PWM, AI Cooling and fan calibration algorithms are unchanged.
+
+## 2.8.12 — GPU / V3D / ISP Profile Manager
+
+- Position 22 now has Factory, Eco, Balanced, Performance, Experimental and Advanced profiles.
+- Added manual max/min controls for core, ISP and V3D plus an explicit Factory restore action.
+- Added cross-field validation (`*_freq_min <= *_freq` and `gpu_freq_min` safety checks).
+- Native Supervisor options and the SBC5 configuration UI resolve the same GPU profile values.
+- Presets rely on Raspberry Pi firmware DVFS and do not force `over_voltage`.
+- Added Pi 5 reference values and documentation; GPU changes still require a full host reboot.
+- Adaptive PWM and AI Cooling control logic are unchanged.
+
+## 2.8.11 — 2026-10-24
+
+### AI History Reliability + Lightweight Runtime
+- pełny, zunifikowany build: App, package/integracja i Card UI mają wspólną wersję **2.8.11**;
+- rozwijana historia **Predykcja AI** korzysta teraz z natywnego `history-graph` Home Assistanta zamiast drugiego renderera ApexCharts; kafelek nadal przełącza widoczność wykresu, a historia obejmuje **Model AI, Regulator, AI Delta i PWM fizyczny**;
+- po zakończonej migracji namespace telemetria hosta jest publikowana tylko do kanonicznej encji SBC5; stare aliasy są utrzymywane wyłącznie do czasu zakończenia migracji;
+- odciążono watchdog Core (5 s → 10 s) przy zachowaniu 30-sekundowego keepalive oraz watchdog opcji profilu (60 s → 300 s, bez zmian w natychmiastowej synchronizacji po zmianach);
+- lokalny watcher ZIP korzysta z trybu `local_only`, dzięki czemu nie wykonuje przy każdym skanie dodatkowego pełnego sprawdzenia Store/remote;
+- synchronizacja Lovelace kończy się jako `already_current`, jeśli wersja i zawartość karty są już identyczne — bez niepotrzebnego backupu i ponownego zapisu;
+- drobne operacje plikowe integracji wykonywane podczas ścieżek `async` zostały przeniesione do executora, aby nie blokować event loop Home Assistanta;
+- **Adaptive PWM, limity bezpieczeństwa, deadband, slew-rate, AI Assist bounds i awaryjne 100% pozostają bez zmian**;
+- wymagany jest restart Home Assistant po instalacji pełnego buildu; restart Raspberry Pi nie jest wymagany.
+
+## 2.8.7 — 2026-10-24
+
+### AI Prediction History Toggle
+- wykres historii predykcji AI jest domyślnie ukryty;
+- naciśnięcie kafelka **Predykcja AI** rozwija wykres w głównym widoku, ponowne naciśnięcie go ukrywa;
+- wykres jest pełnej szerokości i zawiera cztery przebiegi: **Model AI**, **Regulator**, **AI Delta** oraz **PWM fizyczny**;
+- `AI Delta` korzysta z osobnej prawej osi, aby małe korekty były czytelne przy skali PWM 0–100%;
+- dodano helper `input_boolean.sbc5_ai_prediction_chart_visible`, inicjalizowany jako `off`;
+- usunięto zależność tej funkcji od popupu Browser Mod;
+- instalacja 2.8.7 wymaga jednorazowego restartu Home Assistant z powodu nowego helpera/package; restart Raspberry Pi nie jest wymagany.
+
+## 2.8.6 — 2026-10-24
+
+### Restart-aware Update Scope
+- Dodano `update_scope` do lokalnego manifestu aktualizacji.
+- Paczki `dashboard_only` / `ui_only` nie podmieniają runtime aplikacji, package ani bridge, nie wywołują rebuild i nie tworzą żądania restartu.
+- Card UI ma niezależną wersję zapisywaną w `/data/card_ui_version`; wzorce kart mogą być aktualizowane przez trwały `/data/ui_updates`.
+- Aktualizacja samych kart może automatycznie zsynchronizować aktywną kartę Lovelace przez WebSocket i działa bez restartu Home Assistant oraz bez restartu Raspberry Pi.
+- Pełne aktualizacje nadal zachowują backup, SHA-256, health-check i Restart Manager.
+- Dodano ochronę: paczka `dashboard_only` jest odrzucana, jeśli deklaruje restart inny niż `none` albo zawiera niedozwolone pliki wykonawcze.
+
+## 2.8.5 — AI Prediction Popup + Delta (2026-10-24)
+- Kafelek **Predykcja AI** otwiera po dotknięciu 24-godzinny wykres ApexCharts w oknie Browser Mod zamiast stale zajmować miejsce na głównym dashboardzie.
+- Wykres pokazuje **Predykcję AI**, **Bazę regulatora**, **PWM fizyczny** oraz **AI Delta**; AI Delta korzysta z osobnej prawej osi, aby małe korekty były czytelne przy skali PWM 0–100%.
+- Długie przytrzymanie kafelka nadal otwiera standardowe `more-info`.
+- Synchronizacja Card UI została podniesiona do **2.8.5**; pełna lokalna paczka ma spójne metadane wersji i jest wykrywana przez lokalny skaner ZIP jako aktualizacja z 2.8.4.
+- Bez zmian w AI Cooling, Adaptive PWM, kwalifikacji próbek, modelu oraz zapisanych danych uczenia.
+- Popup wymaga zainstalowanych kart **ApexCharts Card** oraz **Browser Mod** w Home Assistant.
+
+## 2.8.4 — AI Prediction History (2026-10-24)
+- Dodano osobne sensory liczbowe `sensor.sbc5_ai_prediction_pwm`, `sensor.sbc5_ai_baseline_pwm`, `sensor.sbc5_ai_correction_pwm`, `sensor.sbc5_ai_physical_pwm` i `sensor.sbc5_ai_confidence` z `state_class: measurement`, aby Home Assistant Recorder mógł trwale zapisywać historię AI.
+- Główna karta diagnostyczna otrzymała natywny wykres **Historia predykcji AI · 24 h** pokazujący predykcję modelu, bazę regulatora i fizyczne PWM.
+- Kafelek **Predykcja AI** jest powiązany z encją predykcji; dotknięcie otwiera `more-info` z historią tej wartości.
+- Historia zaczyna się od momentu instalacji 2.8.4; istniejące próbki/model AI nie są resetowane ani modyfikowane.
+- Bez zmian w algorytmach AI Cooling, Adaptive PWM, kwalifikacji próbek i ograniczeniach bezpieczeństwa.
+
+## 2.8.3 — Runtime App Routing Recovery (2026-10-23)
+- Naprawiono przekazywanie poleceń z kanonicznego pakietu Home Assistant do faktycznie uruchomionej instancji aplikacji podczas/po migracji namespace.
+- Wszystkie akcje `hassio.app_stdin` wybierają teraz `runtime_app_slug` publikowany przez SBC5 zamiast sztywnego `local_sbc5_control_center`, z bezpiecznym fallbackiem do `local_rpi5_fan_manager`.
+- Natywna encja Update również korzysta z wykrytego runtime slug i automatycznie próbuje drugi dozwolony slug, jeśli pierwszy nie jest zainstalowany.
+- Instalator po odświeżeniu lokalnego Store potrafi zainstalować i uruchomić `local_sbc5_control_center`, gdy źródła kanoniczne są już przygotowane, ale tożsamość aplikacji nie jest jeszcze zainstalowana; w przeciwnym razie wykonuje normalny rebuild.
+- Zachowano poprawkę AI Quality Window z 2.8.2 i wszystkie dotychczasowe dane/model AI.
+
+## 2.8.2 — AI Quality Window Recovery (2026-10-23)
+
+- Naprawiono regresję, przez którą AI było oceniane co 30 s przy wymaganiu minimum 4 punktów w 60-sekundowym oknie temperatury; takie okno nie mogło osiągnąć stanu `ready`.
+- Evaluator AI działa teraz w każdym cyklu Adaptive PWM (~10 s), natomiast zapis obserwacji treningowych pozostaje ograniczony do ~30 s, więc nie zwiększa się tempo uczenia ani zapisów modelu.
+- Zachowano istniejący model, obserwacje i próbki jakościowe — aktualizacja nie resetuje danych AI.
+- Diagnostyka karty pokazuje liczbę punktów i czas okna temperatury oraz prawidłowo wyświetla zakres PWM równy `0 pp`.
+- Card UI i wersja pakietu zostały zsynchronizowane do **2.8.2**.
+
+## 2.8.1 — Card UI Version Sync (2026-10-23)
+
+- Podniesiono wersję głównej karty Lovelace oraz karty aktualizacji do **2.8.1**, zgodnie z wersją aplikacji.
+- `config_ui.py` i `dashboard_sync.py` pobierają oczekiwaną wersję karty z wersji wydania aplikacji (`/release.json`, z dodatkowym przekazaniem `SBC5CC_APP_VERSION` z `run.sh`) zamiast utrzymywać niezależny, ręcznie wpisany numer Card UI.
+- Po aktualizacji karta **2.7.3** jest prawidłowo oznaczana jako wymagająca synchronizacji, a po podmianie jako **Card UI v2.8.1 · AKTUALNA**.
+- Zachowano dotychczasowy bezpieczny przepływ synchronizacji: wykrycie → backup Lovelace → zapis przez sesję administratora HA → weryfikacja → rollback przy błędzie.
+- Bez zmian w algorytmach AI Cooling, Adaptive PWM, kalibracji, CPU Profile Manager i telemetrii.
+
+## 2.8.0 — Runtime Quality, Documentation & Quick Setup (2026-10-22)
+
+### Runtime / optymalizacja
+- Wprowadzono **monotoniczny priorytet restartów**: `host > home_assistant > app > none`. Trwające żądanie pełnego restartu Raspberry Pi nie może już zostać opisane ani zastąpione słabszym restartem Home Assistant podczas aktualizacji.
+- Ograniczono powtarzalne logi wykrywania `notify.mobile_app_*`: ten sam wynik wykrywania jest raportowany raz na runtime zamiast przy każdym wywołaniu ścieżki powiadomień.
+- Pasywny odczyt opcjonalnego katalogu Supervisor `/addons` jest teraz **quiet/best-effort**. Brak tego endpointu nie zaśmieca logów `HTTP 400` i nie wpływa na lokalne aktualizacje ZIP.
+- Naprawiono historyczne aliasy katalogów aktualizacji: runtime ponownie rozpoznaje `/config/rpi5_control_center_updates/` oraz `/config/rpi5_fan_manager_updates/` obok kanonicznego `/config/sbc5_control_center_updates/`.
+- Naprawiono **podwójne liczenie paczek** w statusie retencji/cleanup: Config UI agreguje teraz unikalne katalogi zamiast dwukrotnie skanować kanoniczną ścieżkę.
+- Legacy katalogi aktualizacji są migrowane, ale nie są ponownie tworzone przy każdym starcie; puste aliasy są usuwane best-effort.
+
+### Dokumentacja / UX projektu
+- Przebudowano **Info / README** pod aktualny stan aplikacji: CPU Profile Manager, Boot Verification, Lovelace OC, telemetria 4 rdzeni, Adaptive PWM Sign Guard, lokalne AI i Update Health Check.
+- Przebudowano **Dokumentację** do aktualnej architektury 2.8.0 oraz dodano sekcję szybkiego uruchomienia.
+- Dodano osobny `docs/QUICK_SETUP.md` z minimalną ścieżką instalacja → host access → chłodzenie → karta → CPU/OC → weryfikacja restartu.
+- Uporządkowano główny changelog: usunięto zduplikowane nagłówki, błędną kolejność 2.7.x i powtarzające się wpisy; pełną historię zachowano w archiwum.
+
+### Bez zmian w algorytmach bezpieczeństwa
+- CPU Profile Manager Single Source of Truth, Boot Verification retry/fallback, Adaptive PWM Sign Guard, bounded trim ±12 pp, slew limiter, kalibracja i AI Cooling pozostają funkcjonalnie zgodne z 2.7.3.
+- **Card UI pozostaje 2.7.3** — w tym wydaniu nie zmieniono struktury karty Lovelace.
+
+## 2.7.3 — Lovelace CPU/OC Profiles + 4-Core Clocks (2026-10-22)
+- Dodano na karcie diagnostycznej aktualny profil CPU/OC, saved/runtime MHz i stan restartu/Boot Verification.
+- Dodano bezpieczny wybór presetów CPU/OC z Lovelace przez CPU Profile Manager.
+- Dodano osobne kafelki CPU0–CPU3 z częstotliwością i obciążeniem, bez zwiększania częstotliwości próbkowania.
+- `Advanced` pozostawiono wyłącznie w interfejsie WWW.
+
+## 2.7.2 — Boot Verification Retry/Fallback + Trim Decay (2026-10-22)
+- Naprawiono odczyt `active_max` po restarcie hosta i dodano do 5 prób oraz fallback `cpuinfo_max_freq` / `policy0/scaling_max_freq`.
+- Stary fałszywy Repair może zostać zamknięty na tym samym bootowaniu po poprawnej weryfikacji.
+- Deadband trim decay przyspieszono do około 1 pp / 10 s z zachowaniem Sign Guard i slew-limitera.
+
+## 2.7.1 — CPU Profile Single Source of Truth & Boot Verification (2026-10-22)
+- `config_cpu_profile` stał się jedynym źródłem prawdy dla presetów: 2500 / 2600 / 2800 / 3000 MHz.
+- Dodano trwały `/data/cpu_profile_state.json` oraz ochronę przed destrukcyjnym `factory` podczas startupu.
+- Restart hosta dla CPU jest zamykany dopiero po potwierdzeniu zapisu i runtime max.
+- WWW pokazuje stan `Aktywny / Oczekuje na restart / Niespójność`.
+
+## 2.7.0 — CPU Profile Commit + Adaptive Trim Sign Guard (2026-10-22)
+- Profile CPU/OC zaczęły zapisywać dedykowany `sbc5cc-cpu-profile.txt` niezależnie od ogólnego Config.txt Managera.
+- Realna zmiana profilu CPU wymusza `restart=host`.
+- Dodano Adaptive Trim Sign Guard i usunięto rekonstrukcję trimu, która mogła powodować skoki `+12 → -12 pp`.
+
+## 2.6.35 — Safe CPU OC Profiles & Advanced Guardrails (2026-10-22)
+- Dodano presety Factory / 2500 / 2600 / 2800 / 3000 MHz oraz osobny tryb Advanced.
+- Presety pozostawiają napięcie pod kontrolą firmware/DVFS i nie wymuszają `force_turbo`.
+- Dodano limity bezpieczeństwa i walidację ustawień ręcznych.
+
+## 2.6.34 — Post-Migration Stabilization & Performance (2026-10-22)
+- Wyłączono zbędne ponawianie Namespace Guard po `COMPLETE`.
+- Zredukowano koszt wolnej telemetrii i diagnostyki przy zachowaniu realtime chłodzenia/Adaptive PWM.
+- Ustabilizowano finalny namespace `sbc5_control_center`.
+
+## 2.6.33 — Final Namespace Cutover (2026-10-22)
+- Zakończono migrację do natywnego `local_sbc5_control_center` i canonical bridge `sbc5_control_center`.
+- Dodano deterministyczny handoff, cleanup legacy i paczki instalacyjne App/HACS/Installation Kit.
+
+## 2.6.0–2.6.32 — Adaptive PWM, AI Grid, Mobile UI, Publishing
+Najważniejsze etapy tej serii: Curve-Anchored Adaptive PWM ±12 pp, seamless handoff, AI workload buckets i grid advisor, responsywny Mobile UI, synchronizacja kart, lokalny updater z health-checkiem oraz migracja/publication tooling dla SBC5.
+
+## 2.0.0–2.5.x — Modularizacja i AI Cooling
+Seria wprowadziła modularną kartę diagnostyczną, rozdzielenie Info/Dokumentacji/CHANGELOG, lokalny model AI Cooling, wydajniejszą telemetrię wielordzeniową oraz kolejne zabezpieczenia regulatora.
+
+## 1.x — Fundament projektu
+Pierwsza generacja obejmowała host access, Dynamic Config UI, krzywe Active Coolera, kalibrację PWM/RPM, Restart Manager, bridge Home Assistant, lokalne aktualizacje i kolejne kroki migracji nazw/namespace.
