@@ -99,5 +99,5 @@ assert integration["domain"] == "sbc5_control_center"
 assert (APP_DEST / "bridge" / "__init__.py").read_bytes() == (HACS_DEST / "__init__.py").read_bytes()
 
 assert (ROOT / "scripts/rc_exclusive_guard.sh").read_bytes() == (APP_DEST / "rc_exclusive_guard.sh").read_bytes()
-assert "ENTRYPOINT [\"/rc_exclusive_guard.sh\"]" in text if False else True
+assert 'ENTRYPOINT ["/rc_exclusive_guard.sh"]' in docker.read_text(encoding="utf-8")
 print(f"SBC5 RC distribution staged: App + HACS {VERSION}")
