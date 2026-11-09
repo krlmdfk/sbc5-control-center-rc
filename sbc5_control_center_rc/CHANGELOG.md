@@ -1,6 +1,6 @@
 # Changelog — SBC5 Control Center
 
-## 3.2.1-rc1 — 2026-11-09
+## 3.2.1-rc2 — 2026-11-09
 
 ### English
 

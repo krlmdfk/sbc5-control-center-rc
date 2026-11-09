@@ -1,7 +1,7 @@
 name: SBC5 Control Center RC
-version: 3.2.1-rc1
+version: 3.2.1-rc2
 slug: sbc5_control_center_rc
-description: "SBC5 Control Center 3.2.1-rc1 — Test channel with AI and security hardening"
+description: "SBC5 Control Center 3.2.1-rc2 — Test channel with AI and security hardening"
 arch:
 - aarch64
 machine:

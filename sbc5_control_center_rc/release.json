@@ -1,10 +1,10 @@
 {
-  "version": "3.2.1-rc1",
+  "version": "3.2.1-rc2",
   "release_date": "2026-11-09",
   "restart_required": "home_assistant",
   "summary": "Test channel with AI and security hardening",
-  "package_version": "3.2.1-rc1",
-  "card_ui_version": "3.2.1-rc1",
+  "package_version": "3.2.1-rc2",
+  "card_ui_version": "3.2.1-rc2",
   "name": "SBC5 Control Center",
   "minimum_home_assistant_os": "18.3",
   "minimum_home_assistant_core": "2026.10.1",
