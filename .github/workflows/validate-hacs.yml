@@ -43,6 +43,6 @@ jobs:
           from pathlib import Path
           manifest=json.loads(Path('custom_components/sbc5_control_center/manifest.json').read_text())
           assert manifest['domain']=='sbc5_control_center'
-          assert manifest['version']=='3.2.1-rc1'
+          assert manifest['version']==json.loads(Path('.rc-source.json').read_text())['version']
           print('RC HACS source metadata PASS')
           PY
