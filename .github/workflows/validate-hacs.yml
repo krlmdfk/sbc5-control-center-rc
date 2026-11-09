@@ -1,0 +1,48 @@
+name: Validate RC HACS integration
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "custom_components/**"
+      - "hacs.json"
+      - ".github/workflows/validate-hacs.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hacs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: HACS validation
+        uses: hacs/action@main
+        with:
+          category: integration
+  hassfest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Home Assistant Hassfest validation
+        uses: home-assistant/actions/hassfest@master
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify integration metadata
+        run: |
+          set -euo pipefail
+          python -m compileall -q custom_components/sbc5_control_center
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          manifest=json.loads(Path('custom_components/sbc5_control_center/manifest.json').read_text())
+          assert manifest['domain']=='sbc5_control_center'
+          assert manifest['version']=='3.2.1-rc1'
+          print('RC HACS source metadata PASS')
+          PY
