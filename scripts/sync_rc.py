@@ -86,10 +86,8 @@ shutil.copy2(ROOT / "scripts/rc_exclusive_guard.sh", APP_DEST / "rc_exclusive_gu
 # runtime image patch for run_legacy.sh.
 run = APP_DEST / "run.sh"
 text = run.read_text(encoding="utf-8")
-text = replace_one(text, 'APP_VERSION="3.2.0"', f'APP_VERSION="{VERSION}"', "run.sh")
-text = replace_one(text, 'REQUIRED_PACKAGE_VERSION="3.2.0"',
-                   f'REQUIRED_PACKAGE_VERSION="{VERSION}"', "package version")
-run.write_text(text, encoding="utf-8")
+assert f'APP_VERSION="{VERSION}"' in text, "RC run.sh APP_VERSION not normalized"
+assert f'REQUIRED_PACKAGE_VERSION="{VERSION}"' in text, "RC run.sh package version not normalized"
 
 # The HACS integration continues to have the original domain. The same code
 # and config flow are used; it cannot coexist with the Stable integration.
